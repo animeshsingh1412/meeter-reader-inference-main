@@ -1,10 +1,10 @@
 import argparse
 import cv2
 import numpy as np
-from tensorflow.python.ops.gen_math_ops import imag
 
 from meeter_ml import display_detector as dd
 from meeter_ml import reading_detector as rd
+from meeter_ml import reading_ocr as rocr
 from tools import load_image_into_numpy_array, draw_bb
 from config import settings
 
@@ -57,8 +57,11 @@ def select_best_text_poly(meeter_bbox, text_plygons):
 
   max_iou_idx = np.argmax(ious)
   return text_plygons[max_iou_idx]
-    
 
+def ocr_reading(image_path, reading_recognisier, bbox):
+  reading = reading_recognisier.get_reading(image_path, bbox)
+  return reading
+    
 def detect_display(image_path, display_detector):
   image = load_image_into_numpy_array(image_path)
   input_size = settings.display_detection.input_size
@@ -70,7 +73,7 @@ def detect_reading(image_path, reading_detector):
   sorted_polys, img_out = reading_detector.detect(image_path)
   return sorted_polys, img_out
 
-def inference(image_path, display_detector, reading_detector):
+def inference(image_path, display_detector, reading_detector, reading_recogniser):
   image = load_image_into_numpy_array(image_path)
 
   w, h, _ = image.shape
@@ -90,8 +93,10 @@ def inference(image_path, display_detector, reading_detector):
     max(best_text_poly[:,:,0])[0],
     max(best_text_poly[:,:,1])[0]
     ]
+  
+  reading = ocr_reading(image_path, reading_recogniser, best_text_box)
 
-  return image, box_display, score_display, best_text_box
+  return image, box_display, score_display, best_text_box, reading
 
 def main():
   """
@@ -106,12 +111,20 @@ def main():
     settings.display_detection.model_path,
     settings.display_detection.input_size
   )
+
   reading_detector = rd.ReadingDetector(settings.reading_detection.model_path)
 
-  image, box_display, score_display, best_text_box = inference(
+  reading_recogniser =  rocr.ReadingOCR(
+    settings.reading_ocr.alphabet,
+    (settings.reading_ocr.input_size.y, settings.reading_ocr.input_size.x),
+    settings.reading_ocr.model_path
+  )
+
+  image, box_display, score_display, best_text_box, reading = inference(
       args.image,
       display_detector,
-      reading_detector
+      reading_detector,
+      reading_recogniser
     )
 
   img_out = draw_bb(
@@ -126,7 +139,9 @@ def main():
     text=f'display {score_display}',
     color=(0, 255, 0))
 
-  cv2.imshow('image', img_out)
+  print(f'Extracted reading: {str(reading)}')
+
+  cv2.imshow(str(reading), img_out)
   cv2.waitKey(0)
 
 if __name__=="__main__":

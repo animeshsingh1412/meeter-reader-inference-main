@@ -2,4 +2,4 @@ tensorflow==2.7.0
 opencv-python==4.5.5.62
 tqdm==4.62.3
 dynaconf==3.1.7
-Pillow
+Pillow==9.0.0

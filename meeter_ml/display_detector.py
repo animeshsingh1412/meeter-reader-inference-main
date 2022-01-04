@@ -2,8 +2,6 @@ import sys
 import logging
 import tensorflow as tf
 
-from dynaconf import settings
-
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 def load_tflite_model(model_path, input_size):
