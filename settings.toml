@@ -4,6 +4,7 @@ input_size = 320
 
 [reading_detection]
 model_path = "models/reading_detection.tflite"
+input_size = 320
 
 [reading_ocr]
 model_path = "models/reading_ocr.tflite"

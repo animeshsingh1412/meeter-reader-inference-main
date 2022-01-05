@@ -17,8 +17,13 @@ def load_tflite_model(model_path):
 
 def prepare_input(image_path, input_size, bbox=None):
   input_data = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+  w, h = input_data.shape
+  assert w == h, f'width and height of input image should be same, w = {w}, h = {h}'
+
   if bbox is None:
     bbox = [0, 0, input_data.shape[0], input_data.shape[1]]
+  else:
+    bbox = [int(b*w) for b in bbox]
   
   input_data = input_data[bbox[1]:bbox[3], bbox[0]:bbox[2]]
   input_data = cv2.resize(input_data, (input_size[1], input_size[0]))
@@ -51,7 +56,8 @@ class ReadingOCR:
     """
     Args:
       image_path: input image path
-      bbox: area in image where ocr needs to done, if bbox is none, then OCR is done on whole image
+      bbox: normalised cordinated (0 to 1) in image where ocr needs to done.
+        if bbox is none, then OCR is done on whole image
 
       return text contained in bbox area
     """

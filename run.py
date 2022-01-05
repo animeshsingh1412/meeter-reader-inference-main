@@ -1,12 +1,20 @@
 import argparse
 import cv2
+import glob
 import numpy as np
 
+from pathlib import Path
 from meeter_ml import display_detector as dd
 from meeter_ml import reading_detector as rd
 from meeter_ml import reading_ocr as rocr
-from tools import load_image_into_numpy_array, draw_bb
+from tools import draw_text, load_image_into_numpy_array, draw_bb
 from config import settings
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--image", help="Path to image")
+parser.add_argument("--input_folder", help="Path to input folder")
+parser.add_argument("--output_folder", default="output", help="Path to output folder")
+args = parser.parse_args()
 
 def calculate_iou(boxA, boxB):
     # determine the (x, y)-coordinates of the intersection rectangle
@@ -79,70 +87,105 @@ def inference(image_path, display_detector, reading_detector, reading_recogniser
   w, h, _ = image.shape
 
   assert w == h, f'width and height of input image shoud be same, got width {w} and height {h}'
-  assert w % 32 == 0 and h % 32 == 0  , f'width and height of input image shoud multiple of 32, got width {w} and height {h}'
+  assert 320 == settings.display_detection.input_size == \
+    settings.reading_detection.input_size, \
+    f'input size of reading_detection and display_detection in settings should be 320'
 
   box_display, class_id, score = detect_display(image_path, display_detector)
   score_display = int(score*100)
 
   text_det_poly, img_text_det_reading = detect_reading(image_path, reading_detector)
+  
+  if not box_display or not text_det_poly:
+    return None, None
+
   best_text_poly = select_best_text_poly(box_display, text_det_poly)
 
   best_text_box =  [
-    min(best_text_poly[:,:,0])[0],
-    min(best_text_poly[:,:,1])[0],
-    max(best_text_poly[:,:,0])[0],
-    max(best_text_poly[:,:,1])[0]
+    min(best_text_poly[:,:,0])[0] - 5,
+    min(best_text_poly[:,:,1])[0] - 5,
+    max(best_text_poly[:,:,0])[0] + 5,
+    max(best_text_poly[:,:,1])[0] + 5
     ]
+  best_text_box = np.clip(best_text_box, 0, settings.reading_detection.input_size)
+  best_text_box_normalised = [float(x)/float(settings.display_detection.input_size) for x in best_text_box]
+  box_display_normalised = [float(x)/float(settings.reading_detection.input_size) for x in box_display]
   
-  reading = ocr_reading(image_path, reading_recogniser, best_text_box)
-
-  return image, box_display, score_display, best_text_box, reading
-
-def main():
-  """
-  Run the inference on a single image
-  """
-
-  parser = argparse.ArgumentParser()
-  parser.add_argument("--image", default="tests/1.png", help="Path to image")
-  args = parser.parse_args()
-
-  display_detector = dd.DisplayDetector(
-    settings.display_detection.model_path,
-    settings.display_detection.input_size
-  )
-
-  reading_detector = rd.ReadingDetector(settings.reading_detection.model_path)
-
-  reading_recogniser =  rocr.ReadingOCR(
-    settings.reading_ocr.alphabet,
-    (settings.reading_ocr.input_size.y, settings.reading_ocr.input_size.x),
-    settings.reading_ocr.model_path
-  )
-
-  image, box_display, score_display, best_text_box, reading = inference(
-      args.image,
-      display_detector,
-      reading_detector,
-      reading_recogniser
-    )
+  reading = ocr_reading(image_path, reading_recogniser, best_text_box_normalised)
 
   img_out = draw_bb(
     image=image,
-    rect=best_text_box,
+    rect=best_text_box_normalised,
     text=f'reading',
     color=(255, 255, 0))
 
   img_out = draw_bb(
     image=img_out,
-    rect=box_display,
+    rect=box_display_normalised,
     text=f'display {score_display}',
     color=(0, 255, 0))
 
-  print(f'Extracted reading: {str(reading)}')
+  return reading, img_out
 
-  cv2.imshow(str(reading), img_out)
-  cv2.waitKey(0)
+def main():
+  """
+  Run the inference on a single image or on images in a folder
+  writes output to output folder
+  """
+
+  display_detector = dd.DisplayDetector(
+      settings.display_detection.model_path,
+      settings.display_detection.input_size
+    )
+
+  reading_detector = rd.ReadingDetector(
+      settings.reading_detection.model_path,
+      (settings.reading_detection.input_size, settings.reading_detection.input_size)
+    )
+
+  reading_recogniser =  rocr.ReadingOCR(
+      settings.reading_ocr.alphabet,
+      (settings.reading_ocr.input_size.y, settings.reading_ocr.input_size.x),
+      settings.reading_ocr.model_path
+    )
+
+  if args.image:
+    reading, img_out = inference(
+        args.image,
+        display_detector,
+        reading_detector,
+        reading_recogniser
+      )
+
+    print(f'Extracted reading: {str(reading)}')
+
+    if img_out is not None:
+      cv2.imshow(str(reading), img_out)
+      cv2.waitKey(0)
+    
+  if args.input_folder:
+    Path(args.output_folder).mkdir(parents=True, exist_ok=True)
+
+    for file in glob.glob(args.input_folder +"/*.*"):
+      if any([ext in file for ext in ['.jpeg', '.jpg', '.png']]):
+        try:
+          reading, img_out = inference(
+            file,
+            display_detector,
+            reading_detector,
+            reading_recogniser
+        )
+        except AssertionError as e:
+          print(f'Results {file}: {e}')
+          continue
+
+      print(f'Results {file}: {reading}')
+
+      if img_out is not None:
+        img_out = cv2.resize(img_out, (320, 320))
+        img_out = draw_text(img_out, reading)
+        cv2.imwrite(args.output_folder + '/' + Path(file).name, img_out)
+      
 
 if __name__=="__main__":
   main()

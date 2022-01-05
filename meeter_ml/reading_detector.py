@@ -69,7 +69,7 @@ def extract_box(score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1,
     # restore
     start = time.time()
     text_box_restored = restore_rectangle(xy_text[:, ::-1]*4, geo_map[xy_text[:, 0], xy_text[:, 1], :]) # N*4*2
-    print('{} text boxes before nms'.format(text_box_restored.shape[0]))
+    #print('{} text boxes before nms'.format(text_box_restored.shape[0]))
     boxes = np.zeros((text_box_restored.shape[0], 9), dtype=np.float32)
     boxes[:, :8] = text_box_restored.reshape((-1, 8))
     boxes[:, 8] = score_map[xy_text[:, 0], xy_text[:, 1]]
@@ -179,10 +179,12 @@ class ReadingDetector:
   """
   def __init__(
         self,
-        model_path="model/reading_detection.tflite"
+        model_path="model/reading_detection.tflite",
+        input_size=(320, 320)
     ):
 
     self.model = load_tflite_model(model_path)
+    self.input_size = input_size
 
   def detect(self, image):
     input_index = self.model.get_input_details()[0]["index"]
@@ -191,7 +193,8 @@ class ReadingDetector:
 
     im_fn_list = [image]
     for im_fn in im_fn_list:
-        im = cv2.imread(im_fn)[:, :, ::-1]
+        im = cv2.imread(im_fn)
+        im = cv2.resize(im, self.input_size, cv2.INTER_CUBIC)[:, :, ::-1]
         start_time = time.time()
         im_resized, (ratio_h, ratio_w) = resize_image(im)
         
@@ -204,8 +207,8 @@ class ReadingDetector:
         timer['net'] = time.time() - start
 
         boxes, timer = extract_box(score_map=score, geo_map=geometry, timer=timer)
-        print('{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms'.format(
-            im_fn, timer['net']*1000, timer['restore']*1000, timer['nms']*1000))
+        #print('{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms'.format(
+        #    im_fn, timer['net']*1000, timer['restore']*1000, timer['nms']*1000))
 
         if boxes is not None:
             boxes = boxes[:, :8].reshape((-1, 4, 2))
@@ -213,7 +216,7 @@ class ReadingDetector:
             boxes[:, :, 1] /= ratio_h
 
         duration = time.time() - start_time
-        print('[timing] {}'.format(duration))
+        #print('[timing] {}'.format(duration))
 
         sorted_polys = []
         if boxes is not None:
@@ -225,10 +228,13 @@ class ReadingDetector:
                 # f.write('{},{},{},{},{},{},{},{}\r\n'.format(
                 #     box[0, 0], box[0, 1], box[1, 0], box[1, 1], box[2, 0], box[2, 1], box[3, 0], box[3, 1],
                 # ))
+                box = np.clip(box, 0, max(im_resized.shape))
                 cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
                 sorted_polys.append(box.astype(np.int32).reshape((-1, 1, 2)))
             
             return sorted_polys, im[:, :, ::-1]
+        else:
+            return None, None
 
 
 def main(argv=None):
