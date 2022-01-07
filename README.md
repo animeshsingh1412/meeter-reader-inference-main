@@ -12,14 +12,21 @@ Install lanms.
 - Linux
   ```console
   cd lanms
-  make -f Makefile.nix
+  cp Makefile.nix Makefile
+  make
   ```
 - Mac
   ```console
   cd lanms
-  make -f Makefile.mac
+  cp Makefile.mac Makefile
+  make
   ```
 - Windows
+  ```console
+    cd lanms
+    cp Makefile.win Makefile
+    make
+  ```
   [How to compile lanms on Windows?](https://github.com/argman/EAST/issues/120)
 #### Evaluation
 To run the inferece on a single image.

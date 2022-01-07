@@ -78,11 +78,11 @@ def detect_display(image_path, display_detector):
   return box, class_id, score
 
 def detect_reading(image_path, reading_detector):
-  sorted_polys, img_out = reading_detector.detect(image_path)
-  return sorted_polys, img_out
+  text_polys, img_out = reading_detector.detect(image_path)
+  return text_polys, img_out
 
 def inference(image_path, display_detector, reading_detector, reading_recogniser):
-  image = load_image_into_numpy_array(image_path)
+  image = cv2.imread(image_path)
 
   w, h, _ = image.shape
 
@@ -91,10 +91,10 @@ def inference(image_path, display_detector, reading_detector, reading_recogniser
     settings.reading_detection.input_size, \
     f'input size of reading_detection and display_detection in settings should be 320'
 
-  box_display, class_id, score = detect_display(image_path, display_detector)
+  box_display, _, score = detect_display(image_path, display_detector)
   score_display = int(score*100)
 
-  text_det_poly, img_text_det_reading = detect_reading(image_path, reading_detector)
+  text_det_poly, _ = detect_reading(image_path, reading_detector)
   
   if not box_display or not text_det_poly:
     return None, None
@@ -167,7 +167,7 @@ def main():
     Path(args.output_folder).mkdir(parents=True, exist_ok=True)
 
     for file in glob.glob(args.input_folder +"/*.*"):
-      if any([ext in file for ext in ['.jpeg', '.jpg', '.png']]):
+      if any([ext in file.lower() for ext in ['.jpeg', '.jpg', '.png']]):
         try:
           reading, img_out = inference(
             file,
@@ -176,7 +176,7 @@ def main():
             reading_recogniser
         )
         except AssertionError as e:
-          print(f'Results {file}: {e}')
+          print(f'Error {file}: {e}')
           continue
 
       print(f'Results {file}: {reading}')
