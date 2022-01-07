@@ -1,6 +1,23 @@
 ### Extraction of readings from electricity meeter
+Extraction of electricity meeter reading using machine learning using
+- Object detection (Mobilenst SSD)
+- Text detection (EAST)
+- Text recognition (CRNN)
+
+>Input images shape needs to have same height and width
 
 #### Install
+
+##### Using Docker (recommended)
+Install docker, https://docs.docker.com/engine/install/
+
+```console
+docker run -p 8501:8501 renjithks/meeter-reader-inference:latest
+```
+Then go to, http://localhost:8501
+
+##### Using pip
+
 Tested with `python` version `3.8`, although, any version higher than `3.7` should also work.
 
 To install the dependencies
