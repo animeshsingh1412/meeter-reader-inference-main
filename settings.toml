@@ -3,11 +3,11 @@ model_path = "models/display_detection.tflite"
 input_size = 320
 
 [reading_detection]
-model_path = "models/reading_detection.tflite"
+model_path = "models/reading_detectionV2.tflite"
 input_size = 320
 
 [reading_ocr]
-model_path = "models/reading_ocr.tflite"
+model_path = "models/reading_ocrV3.tflite"
 input_size.x = 200
 input_size.y = 31
-alphabet = "0123456789abcdefghijklmnopqrstuvwxyz."
+alphabet = "0123456789."

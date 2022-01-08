@@ -64,11 +64,13 @@ for i, file in enumerate(glob.glob(input_folder +"/*.*")):
 
   if img_out is not None:
     img_out = cv2.resize(img_out, (320, 320))
-    #img_out = draw_text(img_out, reading)
+  else:
+    img_out = cv2.resize(cv2.imread(file), (320, 320))
+    reading = None
 
-    st.caption(f'{Path(file).name}')
-    st.subheader(f'{reading}')
-    st.image(img_out, channels="BGR")
-    st.markdown("""---""")
+  st.caption(f'{Path(file).name}')
+  st.subheader(f'{reading}')
+  st.image(img_out, channels="BGR")
+  st.markdown("""---""")
 
 shutil.rmtree(input_folder)
