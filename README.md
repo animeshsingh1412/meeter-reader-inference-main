@@ -9,12 +9,9 @@ Extraction of electricity meeter reading using machine learning using
 ### Install
 
 #### Using Docker (recommended)
-Install docker, https://docs.docker.com/engine/install/
-
-```console
-docker run -p 8501:8501 renjithks/meeter-reader-inference
-```
-Then go to, http://localhost:8501
+1.  Install docker, https://docs.docker.com/engine/install/  
+2. On terminal run `docker run -p 8501:8501 renjithks/meeter-reader-inference`
+3. Then go to, http://localhost:8501
 
 >To get older versions, go to [docker hub](https://hub.docker.com/repository/docker/renjithks/meeter-reader-inference "") 
 
