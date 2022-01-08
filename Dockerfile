@@ -14,7 +14,7 @@ RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 WORKDIR /
 RUN --mount=type=ssh git clone git@github.com:renjithsasidharan/meeter-reader-inference.git
 WORKDIR ./meeter-reader-inference
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR ./lanms
 RUN mv Makefile.win Makefile
 RUN make

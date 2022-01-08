@@ -54,8 +54,9 @@ for i, file in enumerate(glob.glob(input_folder +"/*.*")):
         display_detector,
         reading_detector,
         reading_recogniser
-    )
-      reading = reading.split(".")[0]
+    ) 
+      if reading is not None:
+        reading = reading.split(".")[0]
     except AssertionError as e:
       st.caption(f'{Path(file).name}')
       st.error(f'Error {Path(file).name}: {e}')
