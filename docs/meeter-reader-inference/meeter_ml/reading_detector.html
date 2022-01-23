@@ -1,0 +1,953 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>meeter-reader-inference.meeter_ml.reading_detector API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>meeter-reader-inference.meeter_ml.reading_detector</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import cv2
+import time
+import os
+import numpy as np
+import tensorflow as tf
+import argparse
+import lanms
+
+__pdoc__ = {
+    &#39;main&#39;: False
+}
+
+def load_tflite_model(model_path):
+  &#34;&#34;&#34;
+  Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model for `ReadingDetector`
+  Returns:
+    model: Interpreter for tensorflow lite `ReadingDetector` model
+  &#34;&#34;&#34;
+
+  model = tf.lite.Interpreter(model_path=str(model_path))
+  model.allocate_tensors()
+
+  return model
+
+def resize_image(im, max_side_len=2400):
+    &#39;&#39;&#39;
+    Resize image to a size multiple of 32 which is required by the network.
+    
+    ```text
+    The input image is already a multiple of 32. So this function in effect does not need to resize the image.
+    We still keep this method incase in future, we diside to use other input dimensions which is not multiple of 32.
+    ```
+    
+    Args:
+        im: `uint8` numpy array with shape `(img_height, img_width, 3)`. The image to resize. 
+        max_side_len: Limit of max image size to avoid out of memory in gpu
+    Returns:
+        im: The resized image.
+        ratio_h: Resize ratio in y direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
+        ratio_w: Resize ratio in x direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
+    &#39;&#39;&#39;
+    h, w, _ = im.shape
+
+    resize_w = w
+    resize_h = h
+
+    # limit the max side
+    if max(resize_h, resize_w) &gt; max_side_len:
+        ratio = float(max_side_len) / resize_h if resize_h &gt; resize_w else float(max_side_len) / resize_w
+    else:
+        ratio = 1.
+    resize_h = int(resize_h * ratio)
+    resize_w = int(resize_w * ratio)
+
+    resize_h = resize_h if resize_h % 32 == 0 else (resize_h // 32 - 1) * 32
+    resize_w = resize_w if resize_w % 32 == 0 else (resize_w // 32 - 1) * 32
+    resize_h = max(32, resize_h)
+    resize_w = max(32, resize_w)
+    im = cv2.resize(im, (int(resize_w), int(resize_h)))
+
+    ratio_h = resize_h / float(h)
+    ratio_w = resize_w / float(w)
+    
+    return im, (ratio_h, ratio_w)
+
+
+def extract_box(score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1, nms_thres=0.2):
+    &#39;&#39;&#39;
+    Restore text boxes from score map and geo map. 
+    Args:
+        score_map: `float32` Pixel level score map to tell about the confidence level prediction of text in it. Shape is `(1, 80, 80, 1)`. Range of score is `0~1`.
+        geo_map: `float32` Pixel level Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise direction.
+            Shape is `(1, 80, 80, 5)`. The last 5 defines the rotated box. `[Y_top, X_left, width, height, angle_rotated]`.
+        timer: Timing for network, ex:`{&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}`. Used for performace analysis.
+        score_map_thresh: Threshhold for score map `0~1`. Any score maps less than this threshold is ignored.
+        box_thresh: Threshhold for boxes `0~1`. Any boxes maps less than this threshold is ignored.
+        nms_thres: Non-maximum suppression threshold `0~1`.
+    Returns:
+        boxes: `float32`. List of final polygons along with its score. Shape is `(M, 9)`. `M` is number of polygons. `[[X0, Y0, X1, Y1, X2, Y2, X3, Y3, score]]`.
+        timer: Timing for network, ex:`{&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}`. Used for performace analysis.
+    &#39;&#39;&#39;
+    if len(score_map.shape) == 4:
+        score_map = score_map[0, :, :, 0]
+        geo_map = geo_map[0, :, :, ]
+
+    # filter the score map
+    xy_text = np.argwhere(score_map &gt; score_map_thresh)
+    # sort the text boxes via the y axis
+    xy_text = xy_text[np.argsort(xy_text[:, 0])]
+    # restore
+    start = time.time()
+    text_box_restored = restore_rectangle(xy_text[:, ::-1]*4, geo_map[xy_text[:, 0], xy_text[:, 1], :]) # N*4*2
+    #print(&#39;{} text boxes before nms&#39;.format(text_box_restored.shape[0]))
+    boxes = np.zeros((text_box_restored.shape[0], 9), dtype=np.float32)
+    boxes[:, :8] = text_box_restored.reshape((-1, 8))
+    boxes[:, 8] = score_map[xy_text[:, 0], xy_text[:, 1]]
+    timer[&#39;restore&#39;] = time.time() - start
+    # nms part
+    start = time.time()
+    # boxes = nms_locality.nms_locality(boxes.astype(np.float64), nms_thres)
+    boxes = lanms.merge_quadrangle_n9(boxes.astype(&#39;float32&#39;), nms_thres)
+    timer[&#39;nms&#39;] = time.time() - start
+
+    if boxes.shape[0] == 0:
+        return None, timer
+
+    # here we filter some low score boxes by the average score map, this is different from the orginal paper
+    for i, box in enumerate(boxes):
+        mask = np.zeros_like(score_map, dtype=np.uint8)
+        cv2.fillPoly(mask, box[:8].reshape((-1, 4, 2)).astype(np.int32) // 4, 1)
+        boxes[i, 8] = cv2.mean(score_map, mask)[0]
+    boxes = boxes[boxes[:, 8] &gt; box_thresh]
+    return boxes, timer
+
+def sort_poly(p):
+    &#34;&#34;&#34;
+    A utility function to make sure that coordinates of polygon are in the right order starting from top left to bottom left in clockwise direction.
+    Args:
+        p: `int32` Coordinates of rectangle. Shape is `(4, 2)` ex: `[[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]]`.
+    Returns:
+        `int32` Sorted (clockwise) rectangle coordinates. Shape is `(4, 2)`.
+    &#34;&#34;&#34;
+    min_axis = np.argmin(np.sum(p, axis=1))
+    p = p[[min_axis, (min_axis+1)%4, (min_axis+2)%4, (min_axis+3)%4]]
+    if abs(p[0, 0] - p[1, 0]) &gt; abs(p[0, 1] - p[1, 1]):
+        return p
+    else:
+        return p[[0, 3, 2, 1]]
+
+def restore_rectangle(origin, geometry):
+    &#34;&#34;&#34;
+    From origin of text boxes and its geometry, compute the cordinate of the resulting rectangle.
+    Args:
+        origin: `int32` Origin points where text boxes are located. Shape is `(N, 2)`. 2 is the cordinate of origin `[X, Y]`
+        geometry: `float32` Geometry of the corresponding origin coordinates.
+            Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise in direction.
+            Shape is `(N, 5)`.
+            5 contains `[Y_top, X_left, width, height, angle_rotated]`.
+    Returns: `float32` A list of rectangles of shape `(N, 4, 2)`. 
+        N is the number of rectangles.
+        4, 2 is the coordinates of each rectangle `[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]`
+    &#34;&#34;&#34;
+
+    d = geometry[:, :4]
+    angle = geometry[:, 4]
+    # for angle &gt; 0
+    origin_0 = origin[angle &gt;= 0]
+    d_0 = d[angle &gt;= 0]
+    angle_0 = angle[angle &gt;= 0]
+    if origin_0.shape[0] &gt; 0:
+        p = np.array([np.zeros(d_0.shape[0]), -d_0[:, 0] - d_0[:, 2],
+                      d_0[:, 1] + d_0[:, 3], -d_0[:, 0] - d_0[:, 2],
+                      d_0[:, 1] + d_0[:, 3], np.zeros(d_0.shape[0]),
+                      np.zeros(d_0.shape[0]), np.zeros(d_0.shape[0]),
+                      d_0[:, 3], -d_0[:, 2]])
+        p = p.transpose((1, 0)).reshape((-1, 5, 2))  # N*5*2
+
+        rotate_matrix_x = np.array([np.cos(angle_0), np.sin(angle_0)]).transpose((1, 0))
+        rotate_matrix_x = np.repeat(rotate_matrix_x, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))  # N*5*2
+
+        rotate_matrix_y = np.array([-np.sin(angle_0), np.cos(angle_0)]).transpose((1, 0))
+        rotate_matrix_y = np.repeat(rotate_matrix_y, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))
+
+        p_rotate_x = np.sum(rotate_matrix_x * p, axis=2)[:, :, np.newaxis]  # N*5*1
+        p_rotate_y = np.sum(rotate_matrix_y * p, axis=2)[:, :, np.newaxis]  # N*5*1
+
+        p_rotate = np.concatenate([p_rotate_x, p_rotate_y], axis=2)  # N*5*2
+
+        p3_in_origin = origin_0 - p_rotate[:, 4, :]
+        new_p0 = p_rotate[:, 0, :] + p3_in_origin  # N*2
+        new_p1 = p_rotate[:, 1, :] + p3_in_origin
+        new_p2 = p_rotate[:, 2, :] + p3_in_origin
+        new_p3 = p_rotate[:, 3, :] + p3_in_origin
+
+        new_p_0 = np.concatenate([new_p0[:, np.newaxis, :], new_p1[:, np.newaxis, :],
+                                  new_p2[:, np.newaxis, :], new_p3[:, np.newaxis, :]], axis=1)  # N*4*2
+    else:
+        new_p_0 = np.zeros((0, 4, 2))
+    # for angle &lt; 0
+    origin_1 = origin[angle &lt; 0]
+    d_1 = d[angle &lt; 0]
+    angle_1 = angle[angle &lt; 0]
+    if origin_1.shape[0] &gt; 0:
+        p = np.array([-d_1[:, 1] - d_1[:, 3], -d_1[:, 0] - d_1[:, 2],
+                      np.zeros(d_1.shape[0]), -d_1[:, 0] - d_1[:, 2],
+                      np.zeros(d_1.shape[0]), np.zeros(d_1.shape[0]),
+                      -d_1[:, 1] - d_1[:, 3], np.zeros(d_1.shape[0]),
+                      -d_1[:, 1], -d_1[:, 2]])
+        p = p.transpose((1, 0)).reshape((-1, 5, 2))  # N*5*2
+
+        rotate_matrix_x = np.array([np.cos(-angle_1), -np.sin(-angle_1)]).transpose((1, 0))
+        rotate_matrix_x = np.repeat(rotate_matrix_x, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))  # N*5*2
+
+        rotate_matrix_y = np.array([np.sin(-angle_1), np.cos(-angle_1)]).transpose((1, 0))
+        rotate_matrix_y = np.repeat(rotate_matrix_y, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))
+
+        p_rotate_x = np.sum(rotate_matrix_x * p, axis=2)[:, :, np.newaxis]  # N*5*1
+        p_rotate_y = np.sum(rotate_matrix_y * p, axis=2)[:, :, np.newaxis]  # N*5*1
+
+        p_rotate = np.concatenate([p_rotate_x, p_rotate_y], axis=2)  # N*5*2
+
+        p3_in_origin = origin_1 - p_rotate[:, 4, :]
+        new_p0 = p_rotate[:, 0, :] + p3_in_origin  # N*2
+        new_p1 = p_rotate[:, 1, :] + p3_in_origin
+        new_p2 = p_rotate[:, 2, :] + p3_in_origin
+        new_p3 = p_rotate[:, 3, :] + p3_in_origin
+
+        new_p_1 = np.concatenate([new_p0[:, np.newaxis, :], new_p1[:, np.newaxis, :],
+                                  new_p2[:, np.newaxis, :], new_p3[:, np.newaxis, :]], axis=1)  # N*4*2
+    else:
+        new_p_1 = np.zeros((0, 4, 2))
+    return np.concatenate([new_p_0, new_p_1])
+
+class ReadingDetector:
+  &#34;&#34;&#34; Detect the reading in meeter using EAST text detection
+  `ReadingDetector` detects the location of all texts in an image.
+
+  Args:
+    model_path: Path to `ReadingDetector` tensorflow lite model
+    input_size: `int32` Input size of `ReadingDetector` tensorflow lite model. `(height, width)`
+
+  Returns:
+    ReadingDetector: An instance of `ReadingDetector` class
+  &#34;&#34;&#34;
+  def __init__(
+        self,
+        model_path=&#34;model/reading_detection.tflite&#34;,
+        input_size=(320, 320)
+    ):
+
+    self.model = load_tflite_model(model_path)
+    self.input_size = input_size
+
+  def detect(self, image):
+    &#34;&#34;&#34;
+    Detects the location of texts in an image.
+    Image is fed into the FCN and multiple channels of pixel-level text score map and geometry are generated.
+    One of the predicted channels is a score map whose pixel values are in the range of `[0, 1]`.
+    The second channels represent geometries that encloses the word from the view
+    of each pixel. The score stands for the confidence of the geometry shape predicted at the same location.
+    Thresholding is then applied to each predicted region, where the geometries whose scores are over the predefined 
+    threshold is considered valid and saved for later nonmaximum-suppression. Results after NMS are considered
+    the final output of the pipeline.
+
+    Args:
+        image: Path to input image
+
+    Returns:
+        text_polys : `int32` List of detected polygons around texts. 4D array of shape `(N, 4, 1, 2)`, where N is number of text boxes detected
+            ```python
+            [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+            ```
+        img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+    &#34;&#34;&#34;
+    input_index = self.model.get_input_details()[0][&#34;index&#34;]
+    output_index_1 = self.model.get_output_details()[0][&#34;index&#34;]
+    output_index_2 = self.model.get_output_details()[1][&#34;index&#34;]
+
+    im_fn_list = [image]
+    for im_fn in im_fn_list:
+        im = cv2.imread(im_fn)
+        im = cv2.resize(im, self.input_size, cv2.INTER_CUBIC)[:, :, ::-1]
+        start_time = time.time()
+        im_resized, (ratio_h, ratio_w) = resize_image(im)
+        
+        timer = {&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}
+        start = time.time()
+        self.model.set_tensor(input_index, im_resized[np.newaxis, :, :, :].astype(np.float32))
+        self.model.invoke()
+        score = self.model.get_tensor(output_index_1)
+        geometry = self.model.get_tensor(output_index_2)
+        timer[&#39;net&#39;] = time.time() - start
+
+        boxes, timer = extract_box(score_map=score, geo_map=geometry, timer=timer)
+        #print(&#39;{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms&#39;.format(
+        #    im_fn, timer[&#39;net&#39;]*1000, timer[&#39;restore&#39;]*1000, timer[&#39;nms&#39;]*1000))
+
+        if boxes is not None:
+            boxes = boxes[:, :8].reshape((-1, 4, 2))
+            boxes[:, :, 0] /= ratio_w
+            boxes[:, :, 1] /= ratio_h
+
+        duration = time.time() - start_time
+        #print(&#39;[timing] {}&#39;.format(duration))
+
+        sorted_polys = []
+        if boxes is not None:
+            for box in boxes:
+                # to avoid submitting errors
+                box = sort_poly(box.astype(np.int32))
+                if np.linalg.norm(box[0] - box[1]) &lt; 5 or np.linalg.norm(box[3]-box[0]) &lt; 5:
+                    continue
+                # f.write(&#39;{},{},{},{},{},{},{},{}\r\n&#39;.format(
+                #     box[0, 0], box[0, 1], box[1, 0], box[1, 1], box[2, 0], box[2, 1], box[3, 0], box[3, 1],
+                # ))
+                box = np.clip(box, 0, max(im_resized.shape))
+                cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
+                sorted_polys.append(box.astype(np.int32).reshape((-1, 1, 2)))
+            
+            return sorted_polys, im[:, :, ::-1]
+        else:
+            return None, None
+
+
+def main(argv=None):
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#34;--image&#34;, default=&#34;tests/4.png&#34;, help=&#34;Path to image&#34;)
+    parser.add_argument(&#34;--model&#34;, default=&#34;models/reading_detection.tflite&#34;, help=&#34;Path to tflite readin detection model&#34;)
+    args = parser.parse_args()
+
+    rd = ReadingDetector(args.model)
+    sorted_polys, im = rd.detect(args.image)
+
+    print(&#39;[polygons]&#39;)
+    print(sorted_polys)
+    cv2.imshow(&#39;image&#39;, im[:, :, ::-1])
+    cv2.waitKey(0)
+
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.extract_box"><code class="name flex">
+<span>def <span class="ident">extract_box</span></span>(<span>score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1, nms_thres=0.2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Restore text boxes from score map and geo map. </p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>score_map</code></strong></dt>
+<dd><code>float32</code> Pixel level score map to tell about the confidence level prediction of text in it. Shape is <code>(1, 80, 80, 1)</code>. Range of score is <code>0~1</code>.</dd>
+<dt><strong><code>geo_map</code></strong></dt>
+<dd><code>float32</code> Pixel level Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise direction.
+Shape is <code>(1, 80, 80, 5)</code>. The last 5 defines the rotated box. <code>[Y_top, X_left, width, height, angle_rotated]</code>.</dd>
+<dt><strong><code>timer</code></strong></dt>
+<dd>Timing for network, ex:<code>{'net': 0, 'restore': 0, 'nms': 0}</code>. Used for performace analysis.</dd>
+<dt><strong><code>score_map_thresh</code></strong></dt>
+<dd>Threshhold for score map <code>0~1</code>. Any score maps less than this threshold is ignored.</dd>
+<dt><strong><code>box_thresh</code></strong></dt>
+<dd>Threshhold for boxes <code>0~1</code>. Any boxes maps less than this threshold is ignored.</dd>
+<dt><strong><code>nms_thres</code></strong></dt>
+<dd>Non-maximum suppression threshold <code>0~1</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>boxes</code></dt>
+<dd><code>float32</code>. List of final polygons along with its score. Shape is <code>(M, 9)</code>. <code>M</code> is number of polygons. <code>[[X0, Y0, X1, Y1, X2, Y2, X3, Y3, score]]</code>.</dd>
+<dt><code>timer</code></dt>
+<dd>Timing for network, ex:<code>{'net': 0, 'restore': 0, 'nms': 0}</code>. Used for performace analysis.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_box(score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1, nms_thres=0.2):
+    &#39;&#39;&#39;
+    Restore text boxes from score map and geo map. 
+    Args:
+        score_map: `float32` Pixel level score map to tell about the confidence level prediction of text in it. Shape is `(1, 80, 80, 1)`. Range of score is `0~1`.
+        geo_map: `float32` Pixel level Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise direction.
+            Shape is `(1, 80, 80, 5)`. The last 5 defines the rotated box. `[Y_top, X_left, width, height, angle_rotated]`.
+        timer: Timing for network, ex:`{&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}`. Used for performace analysis.
+        score_map_thresh: Threshhold for score map `0~1`. Any score maps less than this threshold is ignored.
+        box_thresh: Threshhold for boxes `0~1`. Any boxes maps less than this threshold is ignored.
+        nms_thres: Non-maximum suppression threshold `0~1`.
+    Returns:
+        boxes: `float32`. List of final polygons along with its score. Shape is `(M, 9)`. `M` is number of polygons. `[[X0, Y0, X1, Y1, X2, Y2, X3, Y3, score]]`.
+        timer: Timing for network, ex:`{&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}`. Used for performace analysis.
+    &#39;&#39;&#39;
+    if len(score_map.shape) == 4:
+        score_map = score_map[0, :, :, 0]
+        geo_map = geo_map[0, :, :, ]
+
+    # filter the score map
+    xy_text = np.argwhere(score_map &gt; score_map_thresh)
+    # sort the text boxes via the y axis
+    xy_text = xy_text[np.argsort(xy_text[:, 0])]
+    # restore
+    start = time.time()
+    text_box_restored = restore_rectangle(xy_text[:, ::-1]*4, geo_map[xy_text[:, 0], xy_text[:, 1], :]) # N*4*2
+    #print(&#39;{} text boxes before nms&#39;.format(text_box_restored.shape[0]))
+    boxes = np.zeros((text_box_restored.shape[0], 9), dtype=np.float32)
+    boxes[:, :8] = text_box_restored.reshape((-1, 8))
+    boxes[:, 8] = score_map[xy_text[:, 0], xy_text[:, 1]]
+    timer[&#39;restore&#39;] = time.time() - start
+    # nms part
+    start = time.time()
+    # boxes = nms_locality.nms_locality(boxes.astype(np.float64), nms_thres)
+    boxes = lanms.merge_quadrangle_n9(boxes.astype(&#39;float32&#39;), nms_thres)
+    timer[&#39;nms&#39;] = time.time() - start
+
+    if boxes.shape[0] == 0:
+        return None, timer
+
+    # here we filter some low score boxes by the average score map, this is different from the orginal paper
+    for i, box in enumerate(boxes):
+        mask = np.zeros_like(score_map, dtype=np.uint8)
+        cv2.fillPoly(mask, box[:8].reshape((-1, 4, 2)).astype(np.int32) // 4, 1)
+        boxes[i, 8] = cv2.mean(score_map, mask)[0]
+    boxes = boxes[boxes[:, 8] &gt; box_thresh]
+    return boxes, timer</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.load_tflite_model"><code class="name flex">
+<span>def <span class="ident">load_tflite_model</span></span>(<span>model_path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load the tf-lite model into memory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>model_path</code></strong></dt>
+<dd>Path to tensorflow lite model for <code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>model</code></dt>
+<dd>Interpreter for tensorflow lite <code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code> model</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_tflite_model(model_path):
+  &#34;&#34;&#34;
+  Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model for `ReadingDetector`
+  Returns:
+    model: Interpreter for tensorflow lite `ReadingDetector` model
+  &#34;&#34;&#34;
+
+  model = tf.lite.Interpreter(model_path=str(model_path))
+  model.allocate_tensors()
+
+  return model</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.resize_image"><code class="name flex">
+<span>def <span class="ident">resize_image</span></span>(<span>im, max_side_len=2400)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resize image to a size multiple of 32 which is required by the network.</p>
+<pre><code class="language-text">The input image is already a multiple of 32. So this function in effect does not need to resize the image.
+We still keep this method incase in future, we diside to use other input dimensions which is not multiple of 32.
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>im</code></strong></dt>
+<dd><code>uint8</code> numpy array with shape <code>(img_height, img_width, 3)</code>. The image to resize. </dd>
+<dt><strong><code>max_side_len</code></strong></dt>
+<dd>Limit of max image size to avoid out of memory in gpu</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>im</code></dt>
+<dd>The resized image.</dd>
+<dt><code>ratio_h</code></dt>
+<dd>Resize ratio in y direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.</dd>
+<dt><code>ratio_w</code></dt>
+<dd>Resize ratio in x direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resize_image(im, max_side_len=2400):
+    &#39;&#39;&#39;
+    Resize image to a size multiple of 32 which is required by the network.
+    
+    ```text
+    The input image is already a multiple of 32. So this function in effect does not need to resize the image.
+    We still keep this method incase in future, we diside to use other input dimensions which is not multiple of 32.
+    ```
+    
+    Args:
+        im: `uint8` numpy array with shape `(img_height, img_width, 3)`. The image to resize. 
+        max_side_len: Limit of max image size to avoid out of memory in gpu
+    Returns:
+        im: The resized image.
+        ratio_h: Resize ratio in y direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
+        ratio_w: Resize ratio in x direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
+    &#39;&#39;&#39;
+    h, w, _ = im.shape
+
+    resize_w = w
+    resize_h = h
+
+    # limit the max side
+    if max(resize_h, resize_w) &gt; max_side_len:
+        ratio = float(max_side_len) / resize_h if resize_h &gt; resize_w else float(max_side_len) / resize_w
+    else:
+        ratio = 1.
+    resize_h = int(resize_h * ratio)
+    resize_w = int(resize_w * ratio)
+
+    resize_h = resize_h if resize_h % 32 == 0 else (resize_h // 32 - 1) * 32
+    resize_w = resize_w if resize_w % 32 == 0 else (resize_w // 32 - 1) * 32
+    resize_h = max(32, resize_h)
+    resize_w = max(32, resize_w)
+    im = cv2.resize(im, (int(resize_w), int(resize_h)))
+
+    ratio_h = resize_h / float(h)
+    ratio_w = resize_w / float(w)
+    
+    return im, (ratio_h, ratio_w)</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.restore_rectangle"><code class="name flex">
+<span>def <span class="ident">restore_rectangle</span></span>(<span>origin, geometry)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>From origin of text boxes and its geometry, compute the cordinate of the resulting rectangle.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>origin</code></strong></dt>
+<dd><code>int32</code> Origin points where text boxes are located. Shape is <code>(N, 2)</code>. 2 is the cordinate of origin <code>[X, Y]</code></dd>
+<dt><strong><code>geometry</code></strong></dt>
+<dd><code>float32</code> Geometry of the corresponding origin coordinates.
+Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise in direction.
+Shape is <code>(N, 5)</code>.
+5 contains <code>[Y_top, X_left, width, height, angle_rotated]</code>.</dd>
+</dl>
+<p>Returns: <code>float32</code> A list of rectangles of shape <code>(N, 4, 2)</code>.
+N is the number of rectangles.
+4, 2 is the coordinates of each rectangle <code>[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def restore_rectangle(origin, geometry):
+    &#34;&#34;&#34;
+    From origin of text boxes and its geometry, compute the cordinate of the resulting rectangle.
+    Args:
+        origin: `int32` Origin points where text boxes are located. Shape is `(N, 2)`. 2 is the cordinate of origin `[X, Y]`
+        geometry: `float32` Geometry of the corresponding origin coordinates.
+            Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise in direction.
+            Shape is `(N, 5)`.
+            5 contains `[Y_top, X_left, width, height, angle_rotated]`.
+    Returns: `float32` A list of rectangles of shape `(N, 4, 2)`. 
+        N is the number of rectangles.
+        4, 2 is the coordinates of each rectangle `[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]`
+    &#34;&#34;&#34;
+
+    d = geometry[:, :4]
+    angle = geometry[:, 4]
+    # for angle &gt; 0
+    origin_0 = origin[angle &gt;= 0]
+    d_0 = d[angle &gt;= 0]
+    angle_0 = angle[angle &gt;= 0]
+    if origin_0.shape[0] &gt; 0:
+        p = np.array([np.zeros(d_0.shape[0]), -d_0[:, 0] - d_0[:, 2],
+                      d_0[:, 1] + d_0[:, 3], -d_0[:, 0] - d_0[:, 2],
+                      d_0[:, 1] + d_0[:, 3], np.zeros(d_0.shape[0]),
+                      np.zeros(d_0.shape[0]), np.zeros(d_0.shape[0]),
+                      d_0[:, 3], -d_0[:, 2]])
+        p = p.transpose((1, 0)).reshape((-1, 5, 2))  # N*5*2
+
+        rotate_matrix_x = np.array([np.cos(angle_0), np.sin(angle_0)]).transpose((1, 0))
+        rotate_matrix_x = np.repeat(rotate_matrix_x, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))  # N*5*2
+
+        rotate_matrix_y = np.array([-np.sin(angle_0), np.cos(angle_0)]).transpose((1, 0))
+        rotate_matrix_y = np.repeat(rotate_matrix_y, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))
+
+        p_rotate_x = np.sum(rotate_matrix_x * p, axis=2)[:, :, np.newaxis]  # N*5*1
+        p_rotate_y = np.sum(rotate_matrix_y * p, axis=2)[:, :, np.newaxis]  # N*5*1
+
+        p_rotate = np.concatenate([p_rotate_x, p_rotate_y], axis=2)  # N*5*2
+
+        p3_in_origin = origin_0 - p_rotate[:, 4, :]
+        new_p0 = p_rotate[:, 0, :] + p3_in_origin  # N*2
+        new_p1 = p_rotate[:, 1, :] + p3_in_origin
+        new_p2 = p_rotate[:, 2, :] + p3_in_origin
+        new_p3 = p_rotate[:, 3, :] + p3_in_origin
+
+        new_p_0 = np.concatenate([new_p0[:, np.newaxis, :], new_p1[:, np.newaxis, :],
+                                  new_p2[:, np.newaxis, :], new_p3[:, np.newaxis, :]], axis=1)  # N*4*2
+    else:
+        new_p_0 = np.zeros((0, 4, 2))
+    # for angle &lt; 0
+    origin_1 = origin[angle &lt; 0]
+    d_1 = d[angle &lt; 0]
+    angle_1 = angle[angle &lt; 0]
+    if origin_1.shape[0] &gt; 0:
+        p = np.array([-d_1[:, 1] - d_1[:, 3], -d_1[:, 0] - d_1[:, 2],
+                      np.zeros(d_1.shape[0]), -d_1[:, 0] - d_1[:, 2],
+                      np.zeros(d_1.shape[0]), np.zeros(d_1.shape[0]),
+                      -d_1[:, 1] - d_1[:, 3], np.zeros(d_1.shape[0]),
+                      -d_1[:, 1], -d_1[:, 2]])
+        p = p.transpose((1, 0)).reshape((-1, 5, 2))  # N*5*2
+
+        rotate_matrix_x = np.array([np.cos(-angle_1), -np.sin(-angle_1)]).transpose((1, 0))
+        rotate_matrix_x = np.repeat(rotate_matrix_x, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))  # N*5*2
+
+        rotate_matrix_y = np.array([np.sin(-angle_1), np.cos(-angle_1)]).transpose((1, 0))
+        rotate_matrix_y = np.repeat(rotate_matrix_y, 5, axis=1).reshape(-1, 2, 5).transpose((0, 2, 1))
+
+        p_rotate_x = np.sum(rotate_matrix_x * p, axis=2)[:, :, np.newaxis]  # N*5*1
+        p_rotate_y = np.sum(rotate_matrix_y * p, axis=2)[:, :, np.newaxis]  # N*5*1
+
+        p_rotate = np.concatenate([p_rotate_x, p_rotate_y], axis=2)  # N*5*2
+
+        p3_in_origin = origin_1 - p_rotate[:, 4, :]
+        new_p0 = p_rotate[:, 0, :] + p3_in_origin  # N*2
+        new_p1 = p_rotate[:, 1, :] + p3_in_origin
+        new_p2 = p_rotate[:, 2, :] + p3_in_origin
+        new_p3 = p_rotate[:, 3, :] + p3_in_origin
+
+        new_p_1 = np.concatenate([new_p0[:, np.newaxis, :], new_p1[:, np.newaxis, :],
+                                  new_p2[:, np.newaxis, :], new_p3[:, np.newaxis, :]], axis=1)  # N*4*2
+    else:
+        new_p_1 = np.zeros((0, 4, 2))
+    return np.concatenate([new_p_0, new_p_1])</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.sort_poly"><code class="name flex">
+<span>def <span class="ident">sort_poly</span></span>(<span>p)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A utility function to make sure that coordinates of polygon are in the right order starting from top left to bottom left in clockwise direction.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>p</code></strong></dt>
+<dd><code>int32</code> Coordinates of rectangle. Shape is <code>(4, 2)</code> ex: <code>[[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]]</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p><code>int32</code> Sorted (clockwise) rectangle coordinates. Shape is <code>(4, 2)</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sort_poly(p):
+    &#34;&#34;&#34;
+    A utility function to make sure that coordinates of polygon are in the right order starting from top left to bottom left in clockwise direction.
+    Args:
+        p: `int32` Coordinates of rectangle. Shape is `(4, 2)` ex: `[[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]]`.
+    Returns:
+        `int32` Sorted (clockwise) rectangle coordinates. Shape is `(4, 2)`.
+    &#34;&#34;&#34;
+    min_axis = np.argmin(np.sum(p, axis=1))
+    p = p[[min_axis, (min_axis+1)%4, (min_axis+2)%4, (min_axis+3)%4]]
+    if abs(p[0, 0] - p[1, 0]) &gt; abs(p[0, 1] - p[1, 1]):
+        return p
+    else:
+        return p[[0, 3, 2, 1]]</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector"><code class="flex name class">
+<span>class <span class="ident">ReadingDetector</span></span>
+<span>(</span><span>model_path='model/reading_detection.tflite', input_size=(320, 320))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Detect the reading in meeter using EAST text detection
+<code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code> detects the location of all texts in an image.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>model_path</code></strong></dt>
+<dd>Path to <code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code> tensorflow lite model</dd>
+<dt><strong><code>input_size</code></strong></dt>
+<dd><code>int32</code> Input size of <code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code> tensorflow lite model. <code>(height, width)</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code></dt>
+<dd>An instance of <code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code> class</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ReadingDetector:
+  &#34;&#34;&#34; Detect the reading in meeter using EAST text detection
+  `ReadingDetector` detects the location of all texts in an image.
+
+  Args:
+    model_path: Path to `ReadingDetector` tensorflow lite model
+    input_size: `int32` Input size of `ReadingDetector` tensorflow lite model. `(height, width)`
+
+  Returns:
+    ReadingDetector: An instance of `ReadingDetector` class
+  &#34;&#34;&#34;
+  def __init__(
+        self,
+        model_path=&#34;model/reading_detection.tflite&#34;,
+        input_size=(320, 320)
+    ):
+
+    self.model = load_tflite_model(model_path)
+    self.input_size = input_size
+
+  def detect(self, image):
+    &#34;&#34;&#34;
+    Detects the location of texts in an image.
+    Image is fed into the FCN and multiple channels of pixel-level text score map and geometry are generated.
+    One of the predicted channels is a score map whose pixel values are in the range of `[0, 1]`.
+    The second channels represent geometries that encloses the word from the view
+    of each pixel. The score stands for the confidence of the geometry shape predicted at the same location.
+    Thresholding is then applied to each predicted region, where the geometries whose scores are over the predefined 
+    threshold is considered valid and saved for later nonmaximum-suppression. Results after NMS are considered
+    the final output of the pipeline.
+
+    Args:
+        image: Path to input image
+
+    Returns:
+        text_polys : `int32` List of detected polygons around texts. 4D array of shape `(N, 4, 1, 2)`, where N is number of text boxes detected
+            ```python
+            [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+            ```
+        img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+    &#34;&#34;&#34;
+    input_index = self.model.get_input_details()[0][&#34;index&#34;]
+    output_index_1 = self.model.get_output_details()[0][&#34;index&#34;]
+    output_index_2 = self.model.get_output_details()[1][&#34;index&#34;]
+
+    im_fn_list = [image]
+    for im_fn in im_fn_list:
+        im = cv2.imread(im_fn)
+        im = cv2.resize(im, self.input_size, cv2.INTER_CUBIC)[:, :, ::-1]
+        start_time = time.time()
+        im_resized, (ratio_h, ratio_w) = resize_image(im)
+        
+        timer = {&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}
+        start = time.time()
+        self.model.set_tensor(input_index, im_resized[np.newaxis, :, :, :].astype(np.float32))
+        self.model.invoke()
+        score = self.model.get_tensor(output_index_1)
+        geometry = self.model.get_tensor(output_index_2)
+        timer[&#39;net&#39;] = time.time() - start
+
+        boxes, timer = extract_box(score_map=score, geo_map=geometry, timer=timer)
+        #print(&#39;{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms&#39;.format(
+        #    im_fn, timer[&#39;net&#39;]*1000, timer[&#39;restore&#39;]*1000, timer[&#39;nms&#39;]*1000))
+
+        if boxes is not None:
+            boxes = boxes[:, :8].reshape((-1, 4, 2))
+            boxes[:, :, 0] /= ratio_w
+            boxes[:, :, 1] /= ratio_h
+
+        duration = time.time() - start_time
+        #print(&#39;[timing] {}&#39;.format(duration))
+
+        sorted_polys = []
+        if boxes is not None:
+            for box in boxes:
+                # to avoid submitting errors
+                box = sort_poly(box.astype(np.int32))
+                if np.linalg.norm(box[0] - box[1]) &lt; 5 or np.linalg.norm(box[3]-box[0]) &lt; 5:
+                    continue
+                # f.write(&#39;{},{},{},{},{},{},{},{}\r\n&#39;.format(
+                #     box[0, 0], box[0, 1], box[1, 0], box[1, 1], box[2, 0], box[2, 1], box[3, 0], box[3, 1],
+                # ))
+                box = np.clip(box, 0, max(im_resized.shape))
+                cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
+                sorted_polys.append(box.astype(np.int32).reshape((-1, 1, 2)))
+            
+            return sorted_polys, im[:, :, ::-1]
+        else:
+            return None, None</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector.detect"><code class="name flex">
+<span>def <span class="ident">detect</span></span>(<span>self, image)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Detects the location of texts in an image.
+Image is fed into the FCN and multiple channels of pixel-level text score map and geometry are generated.
+One of the predicted channels is a score map whose pixel values are in the range of <code>[0, 1]</code>.
+The second channels represent geometries that encloses the word from the view
+of each pixel. The score stands for the confidence of the geometry shape predicted at the same location.
+Thresholding is then applied to each predicted region, where the geometries whose scores are over the predefined
+threshold is considered valid and saved for later nonmaximum-suppression. Results after NMS are considered
+the final output of the pipeline.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image</code></strong></dt>
+<dd>Path to input image</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>text_polys </code></dt>
+<dd><code>int32</code> List of detected polygons around texts. 4D array of shape <code>(N, 4, 1, 2)</code>, where N is number of text boxes detected
+<code>python
+[[[[ X0,
+Y0]], [[X1,
+Y1]], [[X2,
+Y2]], [[X3,
+Y3]]]]</code></dd>
+<dt><code>img_out</code></dt>
+<dd><code>uint8</code> numpy array with shape <code>(img_height, img_width, 3)</code>. Annotated image with boxes around texts.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect(self, image):
+  &#34;&#34;&#34;
+  Detects the location of texts in an image.
+  Image is fed into the FCN and multiple channels of pixel-level text score map and geometry are generated.
+  One of the predicted channels is a score map whose pixel values are in the range of `[0, 1]`.
+  The second channels represent geometries that encloses the word from the view
+  of each pixel. The score stands for the confidence of the geometry shape predicted at the same location.
+  Thresholding is then applied to each predicted region, where the geometries whose scores are over the predefined 
+  threshold is considered valid and saved for later nonmaximum-suppression. Results after NMS are considered
+  the final output of the pipeline.
+
+  Args:
+      image: Path to input image
+
+  Returns:
+      text_polys : `int32` List of detected polygons around texts. 4D array of shape `(N, 4, 1, 2)`, where N is number of text boxes detected
+          ```python
+          [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+          ```
+      img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+  &#34;&#34;&#34;
+  input_index = self.model.get_input_details()[0][&#34;index&#34;]
+  output_index_1 = self.model.get_output_details()[0][&#34;index&#34;]
+  output_index_2 = self.model.get_output_details()[1][&#34;index&#34;]
+
+  im_fn_list = [image]
+  for im_fn in im_fn_list:
+      im = cv2.imread(im_fn)
+      im = cv2.resize(im, self.input_size, cv2.INTER_CUBIC)[:, :, ::-1]
+      start_time = time.time()
+      im_resized, (ratio_h, ratio_w) = resize_image(im)
+      
+      timer = {&#39;net&#39;: 0, &#39;restore&#39;: 0, &#39;nms&#39;: 0}
+      start = time.time()
+      self.model.set_tensor(input_index, im_resized[np.newaxis, :, :, :].astype(np.float32))
+      self.model.invoke()
+      score = self.model.get_tensor(output_index_1)
+      geometry = self.model.get_tensor(output_index_2)
+      timer[&#39;net&#39;] = time.time() - start
+
+      boxes, timer = extract_box(score_map=score, geo_map=geometry, timer=timer)
+      #print(&#39;{} : net {:.0f}ms, restore {:.0f}ms, nms {:.0f}ms&#39;.format(
+      #    im_fn, timer[&#39;net&#39;]*1000, timer[&#39;restore&#39;]*1000, timer[&#39;nms&#39;]*1000))
+
+      if boxes is not None:
+          boxes = boxes[:, :8].reshape((-1, 4, 2))
+          boxes[:, :, 0] /= ratio_w
+          boxes[:, :, 1] /= ratio_h
+
+      duration = time.time() - start_time
+      #print(&#39;[timing] {}&#39;.format(duration))
+
+      sorted_polys = []
+      if boxes is not None:
+          for box in boxes:
+              # to avoid submitting errors
+              box = sort_poly(box.astype(np.int32))
+              if np.linalg.norm(box[0] - box[1]) &lt; 5 or np.linalg.norm(box[3]-box[0]) &lt; 5:
+                  continue
+              # f.write(&#39;{},{},{},{},{},{},{},{}\r\n&#39;.format(
+              #     box[0, 0], box[0, 1], box[1, 0], box[1, 1], box[2, 0], box[2, 1], box[3, 0], box[3, 1],
+              # ))
+              box = np.clip(box, 0, max(im_resized.shape))
+              cv2.polylines(im[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0), thickness=1)
+              sorted_polys.append(box.astype(np.int32).reshape((-1, 1, 2)))
+          
+          return sorted_polys, im[:, :, ::-1]
+      else:
+          return None, None</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="meeter-reader-inference.meeter_ml" href="index.html">meeter-reader-inference.meeter_ml</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.extract_box" href="#meeter-reader-inference.meeter_ml.reading_detector.extract_box">extract_box</a></code></li>
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.load_tflite_model" href="#meeter-reader-inference.meeter_ml.reading_detector.load_tflite_model">load_tflite_model</a></code></li>
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.resize_image" href="#meeter-reader-inference.meeter_ml.reading_detector.resize_image">resize_image</a></code></li>
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.restore_rectangle" href="#meeter-reader-inference.meeter_ml.reading_detector.restore_rectangle">restore_rectangle</a></code></li>
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.sort_poly" href="#meeter-reader-inference.meeter_ml.reading_detector.sort_poly">sort_poly</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector">ReadingDetector</a></code></h4>
+<ul class="">
+<li><code><a title="meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector.detect" href="#meeter-reader-inference.meeter_ml.reading_detector.ReadingDetector.detect">detect</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

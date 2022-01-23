@@ -7,6 +7,11 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 def load_tflite_model(model_path, input_size):
   """
   Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    interpreter: Tensorflow lite interpreter of the model
   """
 
   logging.info(f'Loading tflite model: {model_path}')
@@ -39,23 +44,27 @@ class DisplayDetector:
 
   Args:
     model: path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    DisplayDetector: An instance of `DisplayDetector`
   """
   def __init__(
         self,
         model_path="model/display_detection.tflite",
         input_size=320
-        
     ):
 
     self.model = load_tflite_model(model_path, input_size)
 
   def detect(self, image):
     """
-    Detect the position of reading in an image.
-    Returns the poly above threhold
-    
+    Detect the bounding box of display in an image. Calls the tensorflow lite model and returns the bounding box with highest score.
     Args:
-      image: is a numpy array
+      image: `uint8` numpy array with shape `(input_size, input_size, 3)`
+    Returns:
+      box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+      class_id: `float32` Class id of bounding box, always `0.0` since we have only one class
+      score: `float32` Confidence score of box, ranging `0~1`
     """
 
     input_details = self.model.get_input_details()

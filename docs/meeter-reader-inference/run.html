@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>meeter-reader-inference.run API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>meeter-reader-inference.run</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import argparse
+import cv2
+import glob
+import numpy as np
+
+from pathlib import Path
+from meeter_ml import display_detector as dd
+from meeter_ml import reading_detector as rd
+from meeter_ml import reading_ocr as rocr
+from tools import draw_text, load_image_into_numpy_array, draw_bb
+from config import settings
+
+def calculate_iou(boxA, boxB):
+  &#34;&#34;&#34;
+  Given two bounding , compute the intersecton over union of the two, which is area of overlap divided by area of union
+  Args:
+    boxA: `int32` Bounding box 1 `[Xmin, Ymin, Xmax, Ymax]`
+    boxB: `int32` Bounding box 2 `[Xmin, Ymin, Xmax, Ymax]`
+  Returns:
+    iou: `float32`Intersection over union value with a range `0~1`
+  &#34;&#34;&#34;
+  # determine the (x, y)-coordinates of the intersection rectangle
+  xA = max(boxA[0], boxB[0])
+  yA = max(boxA[1], boxB[1])
+  xB = min(boxA[2], boxB[2])
+  yB = min(boxA[3], boxB[3])
+
+  # compute the area of intersection rectangle
+  interArea = abs(max((xB - xA, 0)) * max((yB - yA), 0))
+  if interArea == 0:
+    return 0
+  # compute the area of both the prediction and ground-truth
+  # rectangles
+  boxAArea = abs((boxA[2] - boxA[0]) * (boxA[3] - boxA[1]))
+  boxBArea = abs((boxB[2] - boxB[0]) * (boxB[3] - boxB[1]))
+
+  # compute the intersection over union by taking the intersection
+  # area and dividing it by the sum of prediction + ground-truth
+  # areas - the interesection area
+  iou = interArea / float(boxAArea + boxBArea - interArea)
+
+  # return the intersection over union value
+  return iou
+
+def select_best_text_poly(meeter_bbox, text_polygons):
+  &#34;&#34;&#34;
+  Given a bbox of meeter display and text detection polygons,
+  compute the best possible candidate among the text detection polygons.
+  To find the best text box, compute text box having best IOU with meeter display box.
+
+  Args:
+    meeter_bbox: `int32` Detected meeter display box rectangle `[Xmin, Ymin, Xmax, Ymax]`
+    text_polygons : `int32` List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected
+    ```python
+    [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+    ```
+
+  Returns:
+   The text polygon that has maximum IOU with bbox.  Shape is `(4, 1, 2)`. `[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]`
+  &#34;&#34;&#34;
+  ious = []
+  for poly in text_polygons:
+    x_min = min(poly[:,:,0])[0]
+    y_min = min(poly[:,:,1])[0]
+    x_max = max(poly[:,:,0])[0]
+    y_max = max(poly[:,:,1])[0]
+
+    text_rect = [x_min, y_min, x_max, y_max]
+
+    ious.append(calculate_iou(meeter_bbox, text_rect))
+
+  max_iou_idx = np.argmax(ious)
+  return text_polygons[max_iou_idx]
+
+def ocr_reading(image_path, reading_recognizer, bbox):
+  &#34;&#34;&#34;
+  A wrapper functions for calling `ReadingOCR`.
+  It does ocr extraction on an image.
+  Args:
+    image_path: Path to input image
+    reading_recognizer: An instance of `ReadingOCR`
+    bbox: `int32` Bounding box of reading `[Xmin, Ymin, Xmax, Ymax]`
+  Returns:
+    reading: `string` The reading of meeter
+  &#34;&#34;&#34;
+  reading = reading_recognizer.get_reading(image_path, bbox)
+  return reading
+    
+def detect_display(image_path, display_detector):
+  &#34;&#34;&#34;
+  A wrapper function for calling `DisplayDetector`. Given input image, it detects bounding box around meeter display.
+  Args:
+    image_path: Path to input image
+    display_detector:  An instance of `DisplayDetector`
+  Returns:
+    box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+    class_id: `float32` Class id of bounding box, always 0.0, since we have only one class.
+    score: `float32` Confidence score of box, ranging `0~1`
+  &#34;&#34;&#34;
+  image = load_image_into_numpy_array(image_path)
+  input_size = settings.display_detection.input_size
+  image_resized = cv2.resize(image, (input_size, input_size), cv2.INTER_CUBIC)
+  box, class_id, score = display_detector.detect(image_resized)
+  return box, class_id, score
+
+def detect_reading(image_path, reading_detector):
+  &#34;&#34;&#34;
+  A wrapper function for calling `ReadingDetector`. Given and image, it detects polygon location of where the meeter reading texts are located.
+  Args:
+    image_path: Input image path
+    reading_detector: An instance of `ReadingDetector`
+  Returns:
+    text_polys : `int32` List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected
+    ```python
+    [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+    ```
+    img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+  &#34;&#34;&#34;
+  text_polys, img_out = reading_detector.detect(image_path)
+  return text_polys, img_out
+
+def inference(image_path, display_detector, reading_detector, reading_recognizer):
+  &#34;&#34;&#34;
+  A wrapper function to apply ML models on an image and returns the reading and annotated image.
+  Checks if the image width and height is 320.
+  Infer the meeter reading in an image. The best polygon from `ReadingDetector` is selected based on 
+  maximum IOU (Intersection Over Union)  with the bounding box returned by `DisplayDetector`. A rectangle 
+  encompassing the selected polygon from `ReadingDetector` is sent to `ReadingOCR` for text extraction.
+  If model cannot detect anything, then return None.
+
+  Args:
+    image_path: Path to input image
+    display_detector: Instance of `DisplayDetector` object
+    reading_detector: Instance of `ReadingDetector` object
+    reading_recognizer: Instance of `ReadingOCR` object
+  Returns:
+    reading: `string` The meeter reading
+    img_out: `uint8` numpy array with shape `(img_height, img_width, 3)` Annotated image that contains bounding boxes of meeter display and reading.
+  &#34;&#34;&#34;
+  image = cv2.imread(image_path)
+
+  w, h, _ = image.shape
+
+  assert w == h, f&#39;width and height of input image should be same, got width {w} and height {h}&#39;
+  assert 320 == settings.display_detection.input_size == \
+    settings.reading_detection.input_size, \
+    f&#39;input size of reading_detection and display_detection in settings should be 320&#39;
+
+  box_display, _, score = detect_display(image_path, display_detector)
+  score_display = int(score*100)
+
+  text_det_poly, _ = detect_reading(image_path, reading_detector)
+  
+  if not box_display or not text_det_poly:
+    return None, None
+
+  best_text_poly = select_best_text_poly(box_display, text_det_poly)
+
+  # Get surrounding rectangle and add padding of 5px
+  best_text_box =  [
+    min(best_text_poly[:,:,0])[0] - 5,
+    min(best_text_poly[:,:,1])[0] - 5,
+    max(best_text_poly[:,:,0])[0] + 5,
+    max(best_text_poly[:,:,1])[0] + 5
+    ]
+  best_text_box = np.clip(best_text_box, 0, settings.reading_detection.input_size)
+  best_text_box_normalized = [float(x)/float(settings.display_detection.input_size) for x in best_text_box]
+  box_display_normalized = [float(x)/float(settings.reading_detection.input_size) for x in box_display]
+  
+  reading = ocr_reading(image_path, reading_recognizer, best_text_box_normalized)
+
+  img_out = draw_bb(
+    image=image,
+    rect=best_text_box_normalized,
+    text=f&#39;reading&#39;,
+    color=(255, 255, 0))
+
+  img_out = draw_bb(
+    image=img_out,
+    rect=box_display_normalized,
+    text=f&#39;display {score_display}&#39;,
+    color=(0, 255, 0))
+
+  return reading, img_out
+
+def main():
+  &#34;&#34;&#34;
+  ## Description:
+  Run the inference on a single image or on images in a folder
+  writes output to output folder.
+
+  Initializes `DisplayDetector`, `ReadingDetector`, `ReadingOCR`.
+  Calls `inference` function, gets reading numbers and output image with annotated bounding boxes
+
+  ```console
+  ❯ python run.py -h
+  usage: run.py [-h] [--image IMAGE] [--input_folder INPUT_FOLDER] [--output_folder OUTPUT_FOLDER]
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --image IMAGE         Path to image
+    --input_folder INPUT_FOLDER
+                          Path to input folder
+    --output_folder OUTPUT_FOLDER
+                          Path to output folder
+  ```
+
+  To run the inference on a single image.
+  ```python
+  python run.py --image tests/2.png
+  ```
+
+  To run inference on images in a directory.
+  ```console
+  python run.py --input_folder tests
+  ```
+  Predictions are saved to `output` folder by default.
+  &#34;&#34;&#34;
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument(&#34;--image&#34;, help=&#34;Path to image&#34;)
+  parser.add_argument(&#34;--input_folder&#34;, help=&#34;Path to input folder&#34;)
+  parser.add_argument(&#34;--output_folder&#34;, default=&#34;output&#34;, help=&#34;Path to output folder&#34;)
+  args = parser.parse_args()
+
+  display_detector = dd.DisplayDetector(
+      settings.display_detection.model_path,
+      settings.display_detection.input_size
+    )
+
+  reading_detector = rd.ReadingDetector(
+      settings.reading_detection.model_path,
+      (settings.reading_detection.input_size, settings.reading_detection.input_size)
+    )
+
+  reading_recognizer =  rocr.ReadingOCR(
+      settings.reading_ocr.alphabet,
+      (settings.reading_ocr.input_size.y, settings.reading_ocr.input_size.x),
+      settings.reading_ocr.model_path
+    )
+
+  if args.image:
+    reading, img_out = inference(
+        args.image,
+        display_detector,
+        reading_detector,
+        reading_recognizer
+      )
+
+    print(f&#39;Extracted reading: {str(reading)}&#39;)
+
+    if img_out is not None:
+      cv2.imshow(str(reading), img_out)
+      cv2.waitKey(0)
+    
+  if args.input_folder:
+    Path(args.output_folder).mkdir(parents=True, exist_ok=True)
+
+    for file in glob.glob(args.input_folder +&#34;/*.*&#34;):
+      if any([ext in file.lower() for ext in [&#39;.jpeg&#39;, &#39;.jpg&#39;, &#39;.png&#39;]]):
+        try:
+          reading, img_out = inference(
+            file,
+            display_detector,
+            reading_detector,
+            reading_recognizer
+        )
+        except AssertionError as e:
+          print(f&#39;Error {file}: {e}&#39;)
+          continue
+
+      print(f&#39;Results {file}: {reading}&#39;)
+
+      if img_out is not None:
+        img_out = cv2.resize(img_out, (320, 320))
+        img_out = draw_text(img_out, reading)
+        cv2.imwrite(args.output_folder + &#39;/&#39; + Path(file).name, img_out)
+      
+
+if __name__==&#34;__main__&#34;:
+  main()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="meeter-reader-inference.run.calculate_iou"><code class="name flex">
+<span>def <span class="ident">calculate_iou</span></span>(<span>boxA, boxB)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given two bounding , compute the intersecton over union of the two, which is area of overlap divided by area of union</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>boxA</code></strong></dt>
+<dd><code>int32</code> Bounding box 1 <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+<dt><strong><code>boxB</code></strong></dt>
+<dd><code>int32</code> Bounding box 2 <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>iou</code></dt>
+<dd><code>float32</code>Intersection over union value with a range <code>0~1</code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calculate_iou(boxA, boxB):
+  &#34;&#34;&#34;
+  Given two bounding , compute the intersecton over union of the two, which is area of overlap divided by area of union
+  Args:
+    boxA: `int32` Bounding box 1 `[Xmin, Ymin, Xmax, Ymax]`
+    boxB: `int32` Bounding box 2 `[Xmin, Ymin, Xmax, Ymax]`
+  Returns:
+    iou: `float32`Intersection over union value with a range `0~1`
+  &#34;&#34;&#34;
+  # determine the (x, y)-coordinates of the intersection rectangle
+  xA = max(boxA[0], boxB[0])
+  yA = max(boxA[1], boxB[1])
+  xB = min(boxA[2], boxB[2])
+  yB = min(boxA[3], boxB[3])
+
+  # compute the area of intersection rectangle
+  interArea = abs(max((xB - xA, 0)) * max((yB - yA), 0))
+  if interArea == 0:
+    return 0
+  # compute the area of both the prediction and ground-truth
+  # rectangles
+  boxAArea = abs((boxA[2] - boxA[0]) * (boxA[3] - boxA[1]))
+  boxBArea = abs((boxB[2] - boxB[0]) * (boxB[3] - boxB[1]))
+
+  # compute the intersection over union by taking the intersection
+  # area and dividing it by the sum of prediction + ground-truth
+  # areas - the interesection area
+  iou = interArea / float(boxAArea + boxBArea - interArea)
+
+  # return the intersection over union value
+  return iou</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.detect_display"><code class="name flex">
+<span>def <span class="ident">detect_display</span></span>(<span>image_path, display_detector)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A wrapper function for calling <code>DisplayDetector</code>. Given input image, it detects bounding box around meeter display.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong></dt>
+<dd>Path to input image</dd>
+<dt><strong><code>display_detector</code></strong></dt>
+<dd>An instance of <code>DisplayDetector</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>box </code></dt>
+<dd><code>int32</code> Bounding box of meeter display <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+<dt><code>class_id</code></dt>
+<dd><code>float32</code> Class id of bounding box, always 0.0, since we have only one class.</dd>
+<dt><code>score</code></dt>
+<dd><code>float32</code> Confidence score of box, ranging <code>0~1</code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect_display(image_path, display_detector):
+  &#34;&#34;&#34;
+  A wrapper function for calling `DisplayDetector`. Given input image, it detects bounding box around meeter display.
+  Args:
+    image_path: Path to input image
+    display_detector:  An instance of `DisplayDetector`
+  Returns:
+    box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+    class_id: `float32` Class id of bounding box, always 0.0, since we have only one class.
+    score: `float32` Confidence score of box, ranging `0~1`
+  &#34;&#34;&#34;
+  image = load_image_into_numpy_array(image_path)
+  input_size = settings.display_detection.input_size
+  image_resized = cv2.resize(image, (input_size, input_size), cv2.INTER_CUBIC)
+  box, class_id, score = display_detector.detect(image_resized)
+  return box, class_id, score</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.detect_reading"><code class="name flex">
+<span>def <span class="ident">detect_reading</span></span>(<span>image_path, reading_detector)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A wrapper function for calling <code>ReadingDetector</code>. Given and image, it detects polygon location of where the meeter reading texts are located.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong></dt>
+<dd>Input image path</dd>
+<dt><strong><code>reading_detector</code></strong></dt>
+<dd>An instance of <code>ReadingDetector</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>text_polys </code></dt>
+<dd><code>int32</code> List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected</dd>
+</dl>
+<pre><code class="language-python">[[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+</code></pre>
+<dl>
+<dt><code>img_out</code></dt>
+<dd><code>uint8</code> numpy array with shape <code>(img_height, img_width, 3)</code>. Annotated image with boxes around texts.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect_reading(image_path, reading_detector):
+  &#34;&#34;&#34;
+  A wrapper function for calling `ReadingDetector`. Given and image, it detects polygon location of where the meeter reading texts are located.
+  Args:
+    image_path: Input image path
+    reading_detector: An instance of `ReadingDetector`
+  Returns:
+    text_polys : `int32` List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected
+    ```python
+    [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+    ```
+    img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+  &#34;&#34;&#34;
+  text_polys, img_out = reading_detector.detect(image_path)
+  return text_polys, img_out</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.inference"><code class="name flex">
+<span>def <span class="ident">inference</span></span>(<span>image_path, display_detector, reading_detector, reading_recognizer)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A wrapper function to apply ML models on an image and returns the reading and annotated image.
+Checks if the image width and height is 320.
+Infer the meeter reading in an image. The best polygon from <code>ReadingDetector</code> is selected based on
+maximum IOU (Intersection Over Union)
+with the bounding box returned by <code>DisplayDetector</code>. A rectangle
+encompassing the selected polygon from <code>ReadingDetector</code> is sent to <code>ReadingOCR</code> for text extraction.
+If model cannot detect anything, then return None.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong></dt>
+<dd>Path to input image</dd>
+<dt><strong><code>display_detector</code></strong></dt>
+<dd>Instance of <code>DisplayDetector</code> object</dd>
+<dt><strong><code>reading_detector</code></strong></dt>
+<dd>Instance of <code>ReadingDetector</code> object</dd>
+<dt><strong><code>reading_recognizer</code></strong></dt>
+<dd>Instance of <code>ReadingOCR</code> object</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>reading</code></dt>
+<dd><code>string</code> The meeter reading</dd>
+<dt><code>img_out</code></dt>
+<dd><code>uint8</code> numpy array with shape <code>(img_height, img_width, 3)</code> Annotated image that contains bounding boxes of meeter display and reading.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def inference(image_path, display_detector, reading_detector, reading_recognizer):
+  &#34;&#34;&#34;
+  A wrapper function to apply ML models on an image and returns the reading and annotated image.
+  Checks if the image width and height is 320.
+  Infer the meeter reading in an image. The best polygon from `ReadingDetector` is selected based on 
+  maximum IOU (Intersection Over Union)  with the bounding box returned by `DisplayDetector`. A rectangle 
+  encompassing the selected polygon from `ReadingDetector` is sent to `ReadingOCR` for text extraction.
+  If model cannot detect anything, then return None.
+
+  Args:
+    image_path: Path to input image
+    display_detector: Instance of `DisplayDetector` object
+    reading_detector: Instance of `ReadingDetector` object
+    reading_recognizer: Instance of `ReadingOCR` object
+  Returns:
+    reading: `string` The meeter reading
+    img_out: `uint8` numpy array with shape `(img_height, img_width, 3)` Annotated image that contains bounding boxes of meeter display and reading.
+  &#34;&#34;&#34;
+  image = cv2.imread(image_path)
+
+  w, h, _ = image.shape
+
+  assert w == h, f&#39;width and height of input image should be same, got width {w} and height {h}&#39;
+  assert 320 == settings.display_detection.input_size == \
+    settings.reading_detection.input_size, \
+    f&#39;input size of reading_detection and display_detection in settings should be 320&#39;
+
+  box_display, _, score = detect_display(image_path, display_detector)
+  score_display = int(score*100)
+
+  text_det_poly, _ = detect_reading(image_path, reading_detector)
+  
+  if not box_display or not text_det_poly:
+    return None, None
+
+  best_text_poly = select_best_text_poly(box_display, text_det_poly)
+
+  # Get surrounding rectangle and add padding of 5px
+  best_text_box =  [
+    min(best_text_poly[:,:,0])[0] - 5,
+    min(best_text_poly[:,:,1])[0] - 5,
+    max(best_text_poly[:,:,0])[0] + 5,
+    max(best_text_poly[:,:,1])[0] + 5
+    ]
+  best_text_box = np.clip(best_text_box, 0, settings.reading_detection.input_size)
+  best_text_box_normalized = [float(x)/float(settings.display_detection.input_size) for x in best_text_box]
+  box_display_normalized = [float(x)/float(settings.reading_detection.input_size) for x in box_display]
+  
+  reading = ocr_reading(image_path, reading_recognizer, best_text_box_normalized)
+
+  img_out = draw_bb(
+    image=image,
+    rect=best_text_box_normalized,
+    text=f&#39;reading&#39;,
+    color=(255, 255, 0))
+
+  img_out = draw_bb(
+    image=img_out,
+    rect=box_display_normalized,
+    text=f&#39;display {score_display}&#39;,
+    color=(0, 255, 0))
+
+  return reading, img_out</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="description">Description:</h2>
+<p>Run the inference on a single image or on images in a folder
+writes output to output folder.</p>
+<p>Initializes <code>DisplayDetector</code>, <code>ReadingDetector</code>, <code>ReadingOCR</code>.
+Calls <code><a title="meeter-reader-inference.run.inference" href="#meeter-reader-inference.run.inference">inference()</a></code> function, gets reading numbers and output image with annotated bounding boxes</p>
+<pre><code class="language-console">❯ python run.py -h
+usage: run.py [-h] [--image IMAGE] [--input_folder INPUT_FOLDER] [--output_folder OUTPUT_FOLDER]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --image IMAGE         Path to image
+  --input_folder INPUT_FOLDER
+                        Path to input folder
+  --output_folder OUTPUT_FOLDER
+                        Path to output folder
+</code></pre>
+<p>To run the inference on a single image.</p>
+<pre><code class="language-python">python run.py --image tests/2.png
+</code></pre>
+<p>To run inference on images in a directory.</p>
+<pre><code class="language-console">python run.py --input_folder tests
+</code></pre>
+<p>Predictions are saved to <code>output</code> folder by default.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+  &#34;&#34;&#34;
+  ## Description:
+  Run the inference on a single image or on images in a folder
+  writes output to output folder.
+
+  Initializes `DisplayDetector`, `ReadingDetector`, `ReadingOCR`.
+  Calls `inference` function, gets reading numbers and output image with annotated bounding boxes
+
+  ```console
+  ❯ python run.py -h
+  usage: run.py [-h] [--image IMAGE] [--input_folder INPUT_FOLDER] [--output_folder OUTPUT_FOLDER]
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --image IMAGE         Path to image
+    --input_folder INPUT_FOLDER
+                          Path to input folder
+    --output_folder OUTPUT_FOLDER
+                          Path to output folder
+  ```
+
+  To run the inference on a single image.
+  ```python
+  python run.py --image tests/2.png
+  ```
+
+  To run inference on images in a directory.
+  ```console
+  python run.py --input_folder tests
+  ```
+  Predictions are saved to `output` folder by default.
+  &#34;&#34;&#34;
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument(&#34;--image&#34;, help=&#34;Path to image&#34;)
+  parser.add_argument(&#34;--input_folder&#34;, help=&#34;Path to input folder&#34;)
+  parser.add_argument(&#34;--output_folder&#34;, default=&#34;output&#34;, help=&#34;Path to output folder&#34;)
+  args = parser.parse_args()
+
+  display_detector = dd.DisplayDetector(
+      settings.display_detection.model_path,
+      settings.display_detection.input_size
+    )
+
+  reading_detector = rd.ReadingDetector(
+      settings.reading_detection.model_path,
+      (settings.reading_detection.input_size, settings.reading_detection.input_size)
+    )
+
+  reading_recognizer =  rocr.ReadingOCR(
+      settings.reading_ocr.alphabet,
+      (settings.reading_ocr.input_size.y, settings.reading_ocr.input_size.x),
+      settings.reading_ocr.model_path
+    )
+
+  if args.image:
+    reading, img_out = inference(
+        args.image,
+        display_detector,
+        reading_detector,
+        reading_recognizer
+      )
+
+    print(f&#39;Extracted reading: {str(reading)}&#39;)
+
+    if img_out is not None:
+      cv2.imshow(str(reading), img_out)
+      cv2.waitKey(0)
+    
+  if args.input_folder:
+    Path(args.output_folder).mkdir(parents=True, exist_ok=True)
+
+    for file in glob.glob(args.input_folder +&#34;/*.*&#34;):
+      if any([ext in file.lower() for ext in [&#39;.jpeg&#39;, &#39;.jpg&#39;, &#39;.png&#39;]]):
+        try:
+          reading, img_out = inference(
+            file,
+            display_detector,
+            reading_detector,
+            reading_recognizer
+        )
+        except AssertionError as e:
+          print(f&#39;Error {file}: {e}&#39;)
+          continue
+
+      print(f&#39;Results {file}: {reading}&#39;)
+
+      if img_out is not None:
+        img_out = cv2.resize(img_out, (320, 320))
+        img_out = draw_text(img_out, reading)
+        cv2.imwrite(args.output_folder + &#39;/&#39; + Path(file).name, img_out)</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.ocr_reading"><code class="name flex">
+<span>def <span class="ident">ocr_reading</span></span>(<span>image_path, reading_recognizer, bbox)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A wrapper functions for calling <code>ReadingOCR</code>.
+It does ocr extraction on an image.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image_path</code></strong></dt>
+<dd>Path to input image</dd>
+<dt><strong><code>reading_recognizer</code></strong></dt>
+<dd>An instance of <code>ReadingOCR</code></dd>
+<dt><strong><code>bbox</code></strong></dt>
+<dd><code>int32</code> Bounding box of reading <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>reading</code></dt>
+<dd><code>string</code> The reading of meeter</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ocr_reading(image_path, reading_recognizer, bbox):
+  &#34;&#34;&#34;
+  A wrapper functions for calling `ReadingOCR`.
+  It does ocr extraction on an image.
+  Args:
+    image_path: Path to input image
+    reading_recognizer: An instance of `ReadingOCR`
+    bbox: `int32` Bounding box of reading `[Xmin, Ymin, Xmax, Ymax]`
+  Returns:
+    reading: `string` The reading of meeter
+  &#34;&#34;&#34;
+  reading = reading_recognizer.get_reading(image_path, bbox)
+  return reading</code></pre>
+</details>
+</dd>
+<dt id="meeter-reader-inference.run.select_best_text_poly"><code class="name flex">
+<span>def <span class="ident">select_best_text_poly</span></span>(<span>meeter_bbox, text_polygons)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Given a bbox of meeter display and text detection polygons,
+compute the best possible candidate among the text detection polygons.
+To find the best text box, compute text box having best IOU with meeter display box.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>meeter_bbox</code></strong></dt>
+<dd><code>int32</code> Detected meeter display box rectangle <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+</dl>
+<p>text_polygons : <code>int32</code> List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected</p>
+<pre><code class="language-python">[[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+</code></pre>
+<p>Returns:
+The text polygon that has maximum IOU with bbox.
+Shape is <code>(4, 1, 2)</code>. <code>[[[ X0,
+Y0]], [[X1,
+Y1]], [[X2,
+Y2]], [[X3,
+Y3]]]</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def select_best_text_poly(meeter_bbox, text_polygons):
+  &#34;&#34;&#34;
+  Given a bbox of meeter display and text detection polygons,
+  compute the best possible candidate among the text detection polygons.
+  To find the best text box, compute text box having best IOU with meeter display box.
+
+  Args:
+    meeter_bbox: `int32` Detected meeter display box rectangle `[Xmin, Ymin, Xmax, Ymax]`
+    text_polygons : `int32` List of detected polygons around texts. 4D array of shape (N, 4, 1, 2), where N is number of text boxes detected
+    ```python
+    [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+    ```
+
+  Returns:
+   The text polygon that has maximum IOU with bbox.  Shape is `(4, 1, 2)`. `[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]`
+  &#34;&#34;&#34;
+  ious = []
+  for poly in text_polygons:
+    x_min = min(poly[:,:,0])[0]
+    y_min = min(poly[:,:,1])[0]
+    x_max = max(poly[:,:,0])[0]
+    y_max = max(poly[:,:,1])[0]
+
+    text_rect = [x_min, y_min, x_max, y_max]
+
+    ious.append(calculate_iou(meeter_bbox, text_rect))
+
+  max_iou_idx = np.argmax(ious)
+  return text_polygons[max_iou_idx]</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="meeter-reader-inference" href="index.html">meeter-reader-inference</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="meeter-reader-inference.run.calculate_iou" href="#meeter-reader-inference.run.calculate_iou">calculate_iou</a></code></li>
+<li><code><a title="meeter-reader-inference.run.detect_display" href="#meeter-reader-inference.run.detect_display">detect_display</a></code></li>
+<li><code><a title="meeter-reader-inference.run.detect_reading" href="#meeter-reader-inference.run.detect_reading">detect_reading</a></code></li>
+<li><code><a title="meeter-reader-inference.run.inference" href="#meeter-reader-inference.run.inference">inference</a></code></li>
+<li><code><a title="meeter-reader-inference.run.main" href="#meeter-reader-inference.run.main">main</a></code></li>
+<li><code><a title="meeter-reader-inference.run.ocr_reading" href="#meeter-reader-inference.run.ocr_reading">ocr_reading</a></code></li>
+<li><code><a title="meeter-reader-inference.run.select_best_text_poly" href="#meeter-reader-inference.run.select_best_text_poly">select_best_text_poly</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

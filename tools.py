@@ -14,10 +14,10 @@ def load_image_into_numpy_array(path):
   (height, width, channels), where channels=3 for RGB.
 
   Args:
-    path: a file path.
+    path: Path to image file.
 
   Returns:
-    uint8 numpy array with shape (img_height, img_width, 3)
+    `uint8` numpy array with shape `(img_height, img_width, 3)`
   """
 
   # image = cv2.imread(path, cv2.IMREAD_UNCHANGED)
@@ -33,7 +33,12 @@ def load_image_into_numpy_array(path):
 
 def draw_bb(image, rect, text, color):
   """
-  rect: normalised cordinates
+  Draw bounding box over an image with a text over it.
+  Args:
+    image: `uint8` numpy array with shape `(img_height, img_width, 3)`.
+    rect: `flaot32` Normalized coordinates of shape `(4)`. `[X1, Y1, X2, Y2]`.
+  Returns:
+    image: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with bounding box drawn over it.
   """
   w = image.shape[0]
   h = image.shape[1]
@@ -51,7 +56,14 @@ def draw_text(img, text,
           text_color=(0, 255, 0),
           text_color_bg=(0, 0, 0)
           ):
-
+    """
+    Draw text over an image.
+    Args:
+      img:  `uint8` numpy array with shape `(img_height, img_width, 3)`.
+      text: `string` The text that needs to be drawn over the image.
+    Returns:
+      img: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with text drawn over it.
+    """
     x, y = pos
     text_size, _ = cv2.getTextSize(text, font, font_scale, font_thickness)
     text_w, text_h = text_size

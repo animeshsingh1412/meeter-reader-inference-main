@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>meeter-reader-inference.meeter_ml.display_detector API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>meeter-reader-inference.meeter_ml.display_detector</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import sys
+import logging
+import tensorflow as tf
+
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
+def load_tflite_model(model_path, input_size):
+  &#34;&#34;&#34;
+  Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    interpreter: Tensorflow lite interpreter of the model
+  &#34;&#34;&#34;
+
+  logging.info(f&#39;Loading tflite model: {model_path}&#39;)
+
+  # Load the TFLite model and allocate tensors.
+  interpreter = tf.lite.Interpreter(model_path=model_path)
+  interpreter.allocate_tensors()
+
+  # Note that the first frame will trigger tracing of the tf.function, which will
+  # take some time, after which inference should be fast.
+  # Run model through a dummy image
+
+  preprocessed_image = tf.zeros([1, input_size, input_size, 3])
+  input_details = interpreter.get_input_details()
+  output_details = interpreter.get_output_details()
+
+  interpreter.set_tensor(input_details[0][&#39;index&#39;], preprocessed_image.numpy())
+  interpreter.invoke()
+
+  boxes = interpreter.get_tensor(output_details[1][&#39;index&#39;])
+  classes = interpreter.get_tensor(output_details[3][&#39;index&#39;])
+  scores = interpreter.get_tensor(output_details[0][&#39;index&#39;])
+
+  logging.info(f&#39;Successfully loaded tflite model: {model_path}&#39;) 
+
+  return interpreter
+
+class DisplayDetector:
+  &#34;&#34;&#34; Detect the display of meeter using Mobilenet SSD object detection
+
+  Args:
+    model: path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    DisplayDetector: An instance of `DisplayDetector`
+  &#34;&#34;&#34;
+  def __init__(
+        self,
+        model_path=&#34;model/display_detection.tflite&#34;,
+        input_size=320
+    ):
+
+    self.model = load_tflite_model(model_path, input_size)
+
+  def detect(self, image):
+    &#34;&#34;&#34;
+    Detect the bounding box of display in an image. Calls the tensorflow lite model and returns the bounding box with highest score.
+    Args:
+      image: `uint8` numpy array with shape `(input_size, input_size, 3)`
+    Returns:
+      box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+      class_id: `float32` Class id of bounding box, always `0.0` since we have only one class
+      score: `float32` Confidence score of box, ranging `0~1`
+    &#34;&#34;&#34;
+
+    input_details = self.model.get_input_details()
+    output_details = self.model.get_output_details()
+
+    image = (2.0/255.0) * tf.convert_to_tensor(image, dtype=tf.float32) - 1.0
+    image_tensor_batch = tf.expand_dims(image, axis=0) # batch_size = 1
+    #processed_tensors = tf.image.per_image_standardization(image_tensor_batch)
+    #
+
+    self.model.set_tensor(input_details[0][&#39;index&#39;], image_tensor_batch)
+    self.model.invoke()
+
+    boxes = self.model.get_tensor(output_details[1][&#39;index&#39;])
+    classes = self.model.get_tensor(output_details[3][&#39;index&#39;])
+    scores = self.model.get_tensor(output_details[0][&#39;index&#39;])
+
+    # Get box with highest confidence score
+    idx = tf.math.argmax(scores[0])
+    score = scores[0][idx]
+    class_id = classes[0][idx]
+
+    w = image.shape[0]  # square image w=h
+    box =  tf.cast(boxes[0][idx]*w, tf.int32).numpy()
+    box = [w if x &gt; w else x for x in box] # crop box if its overflowing
+    box = [0 if x &lt; 0 else x for x in box]
+
+    #convert [ymin, xmin, ymax, xmax] to [xmin, ymin, xmax, ymax]
+    box = [box[1], box[0], box[3], box[2]]
+
+    return box, class_id, score</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.display_detector.load_tflite_model"><code class="name flex">
+<span>def <span class="ident">load_tflite_model</span></span>(<span>model_path, input_size)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Load the tf-lite model into memory.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>model_path</code></strong></dt>
+<dd>Path to tensorflow lite model</dd>
+<dt><strong><code>input_size</code></strong></dt>
+<dd><code>int32</code> Input size of <code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector">DisplayDetector</a></code> tensorlfow lite model</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>interpreter</code></dt>
+<dd>Tensorflow lite interpreter of the model</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_tflite_model(model_path, input_size):
+  &#34;&#34;&#34;
+  Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    interpreter: Tensorflow lite interpreter of the model
+  &#34;&#34;&#34;
+
+  logging.info(f&#39;Loading tflite model: {model_path}&#39;)
+
+  # Load the TFLite model and allocate tensors.
+  interpreter = tf.lite.Interpreter(model_path=model_path)
+  interpreter.allocate_tensors()
+
+  # Note that the first frame will trigger tracing of the tf.function, which will
+  # take some time, after which inference should be fast.
+  # Run model through a dummy image
+
+  preprocessed_image = tf.zeros([1, input_size, input_size, 3])
+  input_details = interpreter.get_input_details()
+  output_details = interpreter.get_output_details()
+
+  interpreter.set_tensor(input_details[0][&#39;index&#39;], preprocessed_image.numpy())
+  interpreter.invoke()
+
+  boxes = interpreter.get_tensor(output_details[1][&#39;index&#39;])
+  classes = interpreter.get_tensor(output_details[3][&#39;index&#39;])
+  scores = interpreter.get_tensor(output_details[0][&#39;index&#39;])
+
+  logging.info(f&#39;Successfully loaded tflite model: {model_path}&#39;) 
+
+  return interpreter</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector"><code class="flex name class">
+<span>class <span class="ident">DisplayDetector</span></span>
+<span>(</span><span>model_path='model/display_detection.tflite', input_size=320)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Detect the display of meeter using Mobilenet SSD object detection</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>model</code></strong></dt>
+<dd>path to tensorflow lite model</dd>
+<dt><strong><code>input_size</code></strong></dt>
+<dd><code>int32</code> Input size of <code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector">DisplayDetector</a></code> tensorlfow lite model</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector">DisplayDetector</a></code></dt>
+<dd>An instance of <code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector">DisplayDetector</a></code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DisplayDetector:
+  &#34;&#34;&#34; Detect the display of meeter using Mobilenet SSD object detection
+
+  Args:
+    model: path to tensorflow lite model
+    input_size: `int32` Input size of `DisplayDetector` tensorlfow lite model
+  Returns:
+    DisplayDetector: An instance of `DisplayDetector`
+  &#34;&#34;&#34;
+  def __init__(
+        self,
+        model_path=&#34;model/display_detection.tflite&#34;,
+        input_size=320
+    ):
+
+    self.model = load_tflite_model(model_path, input_size)
+
+  def detect(self, image):
+    &#34;&#34;&#34;
+    Detect the bounding box of display in an image. Calls the tensorflow lite model and returns the bounding box with highest score.
+    Args:
+      image: `uint8` numpy array with shape `(input_size, input_size, 3)`
+    Returns:
+      box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+      class_id: `float32` Class id of bounding box, always `0.0` since we have only one class
+      score: `float32` Confidence score of box, ranging `0~1`
+    &#34;&#34;&#34;
+
+    input_details = self.model.get_input_details()
+    output_details = self.model.get_output_details()
+
+    image = (2.0/255.0) * tf.convert_to_tensor(image, dtype=tf.float32) - 1.0
+    image_tensor_batch = tf.expand_dims(image, axis=0) # batch_size = 1
+    #processed_tensors = tf.image.per_image_standardization(image_tensor_batch)
+    #
+
+    self.model.set_tensor(input_details[0][&#39;index&#39;], image_tensor_batch)
+    self.model.invoke()
+
+    boxes = self.model.get_tensor(output_details[1][&#39;index&#39;])
+    classes = self.model.get_tensor(output_details[3][&#39;index&#39;])
+    scores = self.model.get_tensor(output_details[0][&#39;index&#39;])
+
+    # Get box with highest confidence score
+    idx = tf.math.argmax(scores[0])
+    score = scores[0][idx]
+    class_id = classes[0][idx]
+
+    w = image.shape[0]  # square image w=h
+    box =  tf.cast(boxes[0][idx]*w, tf.int32).numpy()
+    box = [w if x &gt; w else x for x in box] # crop box if its overflowing
+    box = [0 if x &lt; 0 else x for x in box]
+
+    #convert [ymin, xmin, ymax, xmax] to [xmin, ymin, xmax, ymax]
+    box = [box[1], box[0], box[3], box[2]]
+
+    return box, class_id, score</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector.detect"><code class="name flex">
+<span>def <span class="ident">detect</span></span>(<span>self, image)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Detect the bounding box of display in an image. Calls the tensorflow lite model and returns the bounding box with highest score.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>image</code></strong></dt>
+<dd><code>uint8</code> numpy array with shape <code>(input_size, input_size, 3)</code></dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>box </code></dt>
+<dd><code>int32</code> Bounding box of meeter display <code>[Xmin, Ymin, Xmax, Ymax]</code></dd>
+<dt><code>class_id</code></dt>
+<dd><code>float32</code> Class id of bounding box, always <code>0.0</code> since we have only one class</dd>
+<dt><code>score</code></dt>
+<dd><code>float32</code> Confidence score of box, ranging <code>0~1</code></dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect(self, image):
+  &#34;&#34;&#34;
+  Detect the bounding box of display in an image. Calls the tensorflow lite model and returns the bounding box with highest score.
+  Args:
+    image: `uint8` numpy array with shape `(input_size, input_size, 3)`
+  Returns:
+    box : `int32` Bounding box of meeter display `[Xmin, Ymin, Xmax, Ymax]`
+    class_id: `float32` Class id of bounding box, always `0.0` since we have only one class
+    score: `float32` Confidence score of box, ranging `0~1`
+  &#34;&#34;&#34;
+
+  input_details = self.model.get_input_details()
+  output_details = self.model.get_output_details()
+
+  image = (2.0/255.0) * tf.convert_to_tensor(image, dtype=tf.float32) - 1.0
+  image_tensor_batch = tf.expand_dims(image, axis=0) # batch_size = 1
+  #processed_tensors = tf.image.per_image_standardization(image_tensor_batch)
+  #
+
+  self.model.set_tensor(input_details[0][&#39;index&#39;], image_tensor_batch)
+  self.model.invoke()
+
+  boxes = self.model.get_tensor(output_details[1][&#39;index&#39;])
+  classes = self.model.get_tensor(output_details[3][&#39;index&#39;])
+  scores = self.model.get_tensor(output_details[0][&#39;index&#39;])
+
+  # Get box with highest confidence score
+  idx = tf.math.argmax(scores[0])
+  score = scores[0][idx]
+  class_id = classes[0][idx]
+
+  w = image.shape[0]  # square image w=h
+  box =  tf.cast(boxes[0][idx]*w, tf.int32).numpy()
+  box = [w if x &gt; w else x for x in box] # crop box if its overflowing
+  box = [0 if x &lt; 0 else x for x in box]
+
+  #convert [ymin, xmin, ymax, xmax] to [xmin, ymin, xmax, ymax]
+  box = [box[1], box[0], box[3], box[2]]
+
+  return box, class_id, score</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="meeter-reader-inference.meeter_ml" href="index.html">meeter-reader-inference.meeter_ml</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="meeter-reader-inference.meeter_ml.display_detector.load_tflite_model" href="#meeter-reader-inference.meeter_ml.display_detector.load_tflite_model">load_tflite_model</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector">DisplayDetector</a></code></h4>
+<ul class="">
+<li><code><a title="meeter-reader-inference.meeter_ml.display_detector.DisplayDetector.detect" href="#meeter-reader-inference.meeter_ml.display_detector.DisplayDetector.detect">detect</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

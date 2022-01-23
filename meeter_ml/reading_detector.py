@@ -6,9 +6,17 @@ import tensorflow as tf
 import argparse
 import lanms
 
+__pdoc__ = {
+    'main': False
+}
+
 def load_tflite_model(model_path):
   """
   Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model for `ReadingDetector`
+  Returns:
+    model: Interpreter for tensorflow lite `ReadingDetector` model
   """
 
   model = tf.lite.Interpreter(model_path=str(model_path))
@@ -18,10 +26,20 @@ def load_tflite_model(model_path):
 
 def resize_image(im, max_side_len=2400):
     '''
-    resize image to a size multiple of 32 which is required by the network
-    :param im: the resized image
-    :param max_side_len: limit of max image size to avoid out of memory in gpu
-    :return: the resized image and the resize ratio
+    Resize image to a size multiple of 32 which is required by the network.
+    
+    ```text
+    The input image is already a multiple of 32. So this function in effect does not need to resize the image.
+    We still keep this method incase in future, we diside to use other input dimensions which is not multiple of 32.
+    ```
+    
+    Args:
+        im: `uint8` numpy array with shape `(img_height, img_width, 3)`. The image to resize. 
+        max_side_len: Limit of max image size to avoid out of memory in gpu
+    Returns:
+        im: The resized image.
+        ratio_h: Resize ratio in y direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
+        ratio_w: Resize ratio in x direction. Always 1.0 in our case, since the input image dimension is a multiple of 32.
     '''
     h, w, _ = im.shape
 
@@ -44,24 +62,29 @@ def resize_image(im, max_side_len=2400):
 
     ratio_h = resize_h / float(h)
     ratio_w = resize_w / float(w)
-
+    
     return im, (ratio_h, ratio_w)
 
 
 def extract_box(score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1, nms_thres=0.2):
     '''
-    restore text boxes from score map and geo map
-    :param score_map:
-    :param geo_map:
-    :param timer:
-    :param score_map_thresh: threshhold for score map
-    :param box_thresh: threshhold for boxes
-    :param nms_thres: threshold for nms
-    :return:
+    Restore text boxes from score map and geo map. 
+    Args:
+        score_map: `float32` Pixel level score map to tell about the confidence level prediction of text in it. Shape is `(1, 80, 80, 1)`. Range of score is `0~1`.
+        geo_map: `float32` Pixel level Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise direction.
+            Shape is `(1, 80, 80, 5)`. The last 5 defines the rotated box. `[Y_top, X_left, width, height, angle_rotated]`.
+        timer: Timing for network, ex:`{'net': 0, 'restore': 0, 'nms': 0}`. Used for performace analysis.
+        score_map_thresh: Threshhold for score map `0~1`. Any score maps less than this threshold is ignored.
+        box_thresh: Threshhold for boxes `0~1`. Any boxes maps less than this threshold is ignored.
+        nms_thres: Non-maximum suppression threshold `0~1`.
+    Returns:
+        boxes: `float32`. List of final polygons along with its score. Shape is `(M, 9)`. `M` is number of polygons. `[[X0, Y0, X1, Y1, X2, Y2, X3, Y3, score]]`.
+        timer: Timing for network, ex:`{'net': 0, 'restore': 0, 'nms': 0}`. Used for performace analysis.
     '''
     if len(score_map.shape) == 4:
         score_map = score_map[0, :, :, 0]
         geo_map = geo_map[0, :, :, ]
+
     # filter the score map
     xy_text = np.argwhere(score_map > score_map_thresh)
     # sort the text boxes via the y axis
@@ -89,10 +112,16 @@ def extract_box(score_map, geo_map, timer, score_map_thresh=0.7, box_thresh=0.1,
         cv2.fillPoly(mask, box[:8].reshape((-1, 4, 2)).astype(np.int32) // 4, 1)
         boxes[i, 8] = cv2.mean(score_map, mask)[0]
     boxes = boxes[boxes[:, 8] > box_thresh]
-
     return boxes, timer
 
 def sort_poly(p):
+    """
+    A utility function to make sure that coordinates of polygon are in the right order starting from top left to bottom left in clockwise direction.
+    Args:
+        p: `int32` Coordinates of rectangle. Shape is `(4, 2)` ex: `[[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]]`.
+    Returns:
+        `int32` Sorted (clockwise) rectangle coordinates. Shape is `(4, 2)`.
+    """
     min_axis = np.argmin(np.sum(p, axis=1))
     p = p[[min_axis, (min_axis+1)%4, (min_axis+2)%4, (min_axis+3)%4]]
     if abs(p[0, 0] - p[1, 0]) > abs(p[0, 1] - p[1, 1]):
@@ -101,6 +130,19 @@ def sort_poly(p):
         return p[[0, 3, 2, 1]]
 
 def restore_rectangle(origin, geometry):
+    """
+    From origin of text boxes and its geometry, compute the cordinate of the resulting rectangle.
+    Args:
+        origin: `int32` Origin points where text boxes are located. Shape is `(N, 2)`. 2 is the cordinate of origin `[X, Y]`
+        geometry: `float32` Geometry of the corresponding origin coordinates.
+            Rotated Boxes containing 5 values of which 4 are top and left coordinate, width, height and one is rotation angle in counterclockwise in direction.
+            Shape is `(N, 5)`.
+            5 contains `[Y_top, X_left, width, height, angle_rotated]`.
+    Returns: `float32` A list of rectangles of shape `(N, 4, 2)`. 
+        N is the number of rectangles.
+        4, 2 is the coordinates of each rectangle `[X0, Y0], [X1, Y1], [X2, Y2], [X3, Y3]`
+    """
+
     d = geometry[:, :4]
     angle = geometry[:, 4]
     # for angle > 0
@@ -173,9 +215,14 @@ def restore_rectangle(origin, geometry):
 
 class ReadingDetector:
   """ Detect the reading in meeter using EAST text detection
+  `ReadingDetector` detects the location of all texts in an image.
 
   Args:
-    model: path to tensorflow lite model
+    model_path: Path to `ReadingDetector` tensorflow lite model
+    input_size: `int32` Input size of `ReadingDetector` tensorflow lite model. `(height, width)`
+
+  Returns:
+    ReadingDetector: An instance of `ReadingDetector` class
   """
   def __init__(
         self,
@@ -187,6 +234,26 @@ class ReadingDetector:
     self.input_size = input_size
 
   def detect(self, image):
+    """
+    Detects the location of texts in an image.
+    Image is fed into the FCN and multiple channels of pixel-level text score map and geometry are generated.
+    One of the predicted channels is a score map whose pixel values are in the range of `[0, 1]`.
+    The second channels represent geometries that encloses the word from the view
+    of each pixel. The score stands for the confidence of the geometry shape predicted at the same location.
+    Thresholding is then applied to each predicted region, where the geometries whose scores are over the predefined 
+    threshold is considered valid and saved for later nonmaximum-suppression. Results after NMS are considered
+    the final output of the pipeline.
+
+    Args:
+        image: Path to input image
+
+    Returns:
+        text_polys : `int32` List of detected polygons around texts. 4D array of shape `(N, 4, 1, 2)`, where N is number of text boxes detected
+            ```python
+            [[[[ X0,  Y0]], [[X1,  Y1]], [[X2,  Y2]], [[X3,  Y3]]]]
+            ```
+        img_out: `uint8` numpy array with shape `(img_height, img_width, 3)`. Annotated image with boxes around texts. 
+    """
     input_index = self.model.get_input_details()[0]["index"]
     output_index_1 = self.model.get_output_details()[0]["index"]
     output_index_2 = self.model.get_output_details()[1]["index"]

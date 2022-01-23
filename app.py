@@ -12,8 +12,6 @@ from meeter_ml import display_detector as dd
 from meeter_ml import reading_detector as rd
 from meeter_ml import reading_ocr as rocr
 from run import inference
-from tools import draw_bb, draw_text
-
 
 st.title("Electricity meeter reading inference")
 

@@ -6,16 +6,34 @@ import argparse
 import os.path
 import sys
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--image', type=str, default='tests/5.png')
-parser.add_argument('--model', type=str, default='models/reading_ocr.tflite')
+__pdoc__ = {
+    'main': False
+}
 
 def load_tflite_model(model_path):
+  """
+  Load the tf-lite model into memory.
+  Args:
+    model_path: Path to tensorflow lite model for `ReadingOCR`
+  Returns:
+    model: Interpreter for tensorflow lite `ReadingOCR` model
+  """
   interpreter = tf.lite.Interpreter(model_path=model_path)
   interpreter.allocate_tensors()
   return interpreter
 
 def prepare_input(image_path, input_size, bbox=None):
+  """
+  Preprocessing for the input image for OCR network. It converts the image into greyscale and crops it by given `bbox`.
+  If `bbox` is None, then no cropping is performed. The image is resized to `input_size` and pixel values are normalized.
+  Args:
+    image_path: Path to image.
+    input_size: `int32` The dimension to resize the image. `(height, width)`.
+    bbox: `float32` Normalized coordinates (0 to 1) in image where ocr needs to done. Shape is `(4)` like `[Xmin, Ymin, Xmax, Ymax]`
+        if `bbox` is none, then no cropping is performed.
+  Returns:
+    `float32` numpy array of normalized image with shape `(input_size, 1)`.
+  """
   input_data = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
   w, h = input_data.shape
   assert w == h, f'width and height of input image should be same, w = {w}, h = {h}'
@@ -34,11 +52,12 @@ def prepare_input(image_path, input_size, bbox=None):
 
 
 class ReadingOCR:
-  """ Text recognition of meeter reading
+  """ Text recognition of meeter reading. Given an input image, it uses OCR extraction to read the text in an image.
 
   Args:
-    alphabets: list of output labels
-    model_path: path to tensorflow lite model
+    alphabets: List of output labels. `0123456789.`
+    model_path: Path to tensorflow lite `ReadingOCR` model
+    input_size: Input size of `ReadingOCR` model `(height, width)`
   """
   def __init__(
         self,
@@ -54,12 +73,14 @@ class ReadingOCR:
 
   def get_reading(self, image_path, bbox=None):
     """
+    Extracts the reading from an image within the given area represented by the bounding box.
     Args:
-      image_path: input image path
-      bbox: normalised cordinated (0 to 1) in image where ocr needs to done.
-        if bbox is none, then OCR is done on whole image
+      image_path: Input image path
+      bbox: `float32` Normalized coordinates (0 to 1) in image where ocr needs to done. Shape is `(4)` like `[Xmin, Ymin, Xmax, Ymax]`
+        if `bbox` is none, then OCR is done on whole image
 
-      return text contained in bbox area
+      Returns:
+        `string` Text contained in `bbox` area
     """
     input_data = prepare_input(image_path, self.input_size, bbox)
 
@@ -76,6 +97,9 @@ class ReadingOCR:
     return text
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--image', type=str, default='tests/5.png')
+    parser.add_argument('--model', type=str, default='models/reading_ocr.tflite')
     args = parser.parse_args()
 
     if not os.path.isfile(args.image):

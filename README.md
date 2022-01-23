@@ -72,11 +72,11 @@ To run the inferece on a single image.
 ```console
 python run.py --image tests/2.png
 ```
-To run inference on images in a directory.
-```console
-python run.py --input_folder tests
-```
-Predictions are saved to `output` folder by default.
+  To run inference on images in a directory.
+  ```console
+  python run.py --input_folder tests
+  ```
+  Predictions are saved to `output` folder by default.
 
 ### Resutls
 ![tests/2.png](output/2.png "") ![tests/3.png](output/3.png "")
